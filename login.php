@@ -17,7 +17,7 @@
         </header> 
         <div class="articletwo">
             <div class="centrebox">
-                <form name"minForm" onsubmit="return ValidateInfo()" method="POST"> <!-- GET istället för post? Redirect eller inte? -->
+                <form name"minForm" onsubmit="return ValidateInfo()" method="POST"> <!-- GET istället för post? Redirect eller inte?? -->
                     Username/E-mail:
                     <input type="text" name="loginname"><br>
                     Password:
