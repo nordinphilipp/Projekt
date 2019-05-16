@@ -63,11 +63,21 @@ body {
     background-color: rgb(79, 19, 6)
 }
 
-.navbarObject{
+.navbarDiv object{
     width:100%;
     border:none;
     height:60px;
+    object-position: 100% 100%;
 }
+.navbarDiv{
+    padding: 0%;
+    border:none;
+    width:100%;
+    margin:auto;
+    height:60px;
+    box-shadow: 0px 2px 5px rgb(0, 0, 0);
+    position:sticky;
 
+}
 
 
