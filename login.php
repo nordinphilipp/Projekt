@@ -7,14 +7,7 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
-        <header>
-            <div class="navbar">
-                <a href="#">MovieMate</a>
-                <a href="#">Browse</a>
-                <a href="#">Search</a>
-                <a href="#">Login</a>
-            </div>
-        </header> 
+	<object type="text/html" class='navbarObject' data="navbar.html"></object>
         <div class="articletwo">
             <div class="centrebox">
                 <form name"minForm" onsubmit="return ValidateInfo()" method="POST"> <!-- GET istället för post? Redirect eller inte? -->
