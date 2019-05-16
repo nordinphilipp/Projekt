@@ -33,7 +33,7 @@
 				{
 					$loginname = $_POST['loginname'];
 					$password = $_POST['password'];
-					addToDatabase($loginname, $password);
+					Add($loginname, $password);
 				}
 				/*
 				echo $fName;
@@ -122,7 +122,7 @@
 				}
 				else
 				{
-					// Lösenordet matchade ej. Popup med texten "Fel lösenord eller användarnamn. Försök igen"
+					$wrongPassword = "<"// Lösenordet matchade ej. Popup med texten "Fel lösenord eller användarnamn. Försök igen" Skriv i php ALERT 
 				}
 			}
 	</body>
