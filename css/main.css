@@ -63,26 +63,6 @@ body {
     background-color: rgb(79, 19, 6)
 }
 
-.navbarObject{
-    width:100%;
-    border:solid black;
-    z-index: 1;
-    height: 100vh;
-    position:absolute;
-}
-.navbarDiv{
-    padding: 0%;
-    border:none;
-    width:100%;
-    margin:auto;
-    height:auto;
-    box-shadow: 0px 2px 5px rgb(0, 0, 0);
-    position: absolute;
-    z-index: 1;
-    background-color:transparent;
-    
-
-}
 body{
     overflow: auto;
 }
