@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
         <title>MovieMate</title>
@@ -23,7 +23,9 @@
 
     </head>
     <body>
-        
+        <?php
+            include 'navbar.php';
+        ?>
         <!--<nav class="navbar navbar-light red darken-4" >
             <a class="navbar-brand nav-link active" href="#">MovieMate</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
