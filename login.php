@@ -69,36 +69,7 @@
 			}
 		}
 		</script>
-		<?php
-			function Add($loginname, $password)
-			{
-				$uname = "dbtrain_951";
-				$pass = "pqwkjl";
-				$host = "dbtrain.im.uu.se";
-				$dbname = "dbtrain_951";
-				
-				$connection = new mysqli($host, $uname, $pass, $dbname);
-					if($connection->connect_error)
-					{
-						die("Connection failed: ".$connection.connect_error);
-					}
-						echo "Connection worked.";
-					
-				$loginname = my_mysqli_real_escape_string($connection, $_POST['loginname']); 
-				$password = mysqli_real_escape_string($connection, $_POST['password']);
-				$hash = password_hash($password, PASSWORD_DEFAULT);		//För att password_default ska fungera måste kolumnen pw i databasen vara > 60 char. 
-				
-				$sql = "INSERT INTO users(userName, pw) VALUES ('$loginname', '$hash')"; // är userID i databasen auto_increment? Behöver fixas annars.
-				if(mysqli_query($connection, $sql))		// Detta kan raderas sedan om det fungerar att lägga till i databasen.
-				{
-					echo "Successful";
-				}
-				else
-				{
-					echo "Error";
-				}
-			}
-		?>
+
 		<?php
 			while($row = $result->fetch_assoc())  // För att hämta data från SQL-databasen. Kolla rad 96
 			{
@@ -115,9 +86,10 @@
 				}
 				else
 				{
-					$wrongPassword = "<"// Lösenordet matchade ej. Popup med texten "Fel lösenord eller användarnamn. Försök igen" Skriv i php ALERT 
+					//$wrongPassword = "<"// Lösenordet matchade ej. Popup med texten "Fel lösenord eller användarnamn. Försök igen" Skriv i php 
 				}
 			}
+		?>
 	</body>
 </html>
 

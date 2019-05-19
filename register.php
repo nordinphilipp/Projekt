@@ -67,18 +67,18 @@
 		<script>
 		function ValidateInfo()
 		{
-			var retur = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;		//Fixa denna så att den enbart kollar .@.
+			//var retur = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;		//Fixa denna så att den enbart kollar .@.
 			if(document.form.loginname.value == "") 				// Kollar om "användarnamn" i form är tom  OBS!! Fixa så att en tom sträng inte fungerar för att uppfylla detta villkor!!
 			{
 				alert("Du har missat att fylla i namn");
 				return false;
 			} 
-			else if(document.form.email.value == "")	// Fixa så att den kollar att mailadressen har rätt format.
+			else if("/.+@.+\..+/".test(document.form.email.value == false))	// Ska det vara enbart form.email.value == false och inte document. före?
 			{
 				alert("Mailadressen: Felaktigt format");
 				return false;
 			}
-			else if(document.form.password.value == "")	// Kollar om "m i form är skrivet i rätt format i form.
+			else if(".{6,}/".test(document.form.password.value))	// Kollar så att det valda lösenordet innehåller minst 6 tecken. 
 			{
 				alert("Du har missat att välja ett lösenord");
 				return false;
@@ -95,7 +95,7 @@
 		}
 		</script>
 		<?php
-			function Add($loginname, $email, $password)
+			function Add($loginname, $email, $password)			// Funktion Add (som adderar till databasen i users) behöver fixas så att det ej går att registrera två användare med samma 																// nick och/eller lösenord
 			{
 				$uname = "dbtrain_951";
 				$pass = "pqwkjl";
@@ -112,14 +112,17 @@
 				$loginname = my_mysqli_real_escape_string($connection, $_POST['loginname']); 
 				$email = my_mysqli_real_escape_string($connection, $_POST['email']); 
 				$password = mysqli_real_escape_string($connection, $_POST['password']);
-				$hash = password_hash($password, PASSWORD_DEFAULT);		//För att password_default ska fungera måste kolumnen pw i databasen vara > 60 char. 
+				$hash = password_hash($password, PASSWORD_DEFAULT);
 				
-				$sql = "INSERT INTO users(userName, pw) VALUES ('$loginname', '$hash')"; // är userID i databasen auto_increment? Behöver fixas annars.
+				$sql = "INSERT INTO users(userName, email, pw) VALUES ('$loginname', 'email', '$hash')"; 
 				if(mysqli_query($connection, $sql))		// Detta kan raderas sedan om det fungerar att lägga till i databasen.
 				{
 					echo "Successful";
+					$userID = mysql_insert_id(); // Vad gör denna?
+					log_in($userID);
+					header("Location: index.php");
 				}
-				else
+				else if(preg_match("/^Duplicate.*email.*/i", mysql_error())) // Denna kollar ifall mysql_error() innehåller något error som säger att det redan finns samma mailadress, duplic
 				{
 					echo "Error";
 				}
@@ -134,4 +137,6 @@
 		?>
 
 	</body>
+	// Förslag på förbättringar: Vid något fel vid registrering, försvinner all data som de skrivit in? Spar i så fall all data bortsett från lösenordet när de får skriva in igen.
+	// Skriv ut felmeddelanden i php vid minForm istället för javascript. Se videon php form validation på studentportalen för mer info.
 </html>
