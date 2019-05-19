@@ -83,9 +83,9 @@
 				alert("Du har missat att välja ett lösenord");
 				return false;
 			}
-			else if(document.form.repeatPassword.value === document.form.password.value)	// Kollar upp om båda fälten för lösenorden är lika.
+			else if(!document.form.repeatPassword.value === document.form.password.value)	// Kollar upp om båda fälten för lösenorden är lika.
 			{
-				alert("Du har missat att välja ett lösenord");
+				alert("Lösenorden i fälten stämmer inte överens. Testa igen!");
 				return false;
 			}
 			else
