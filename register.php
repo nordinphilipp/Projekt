@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <title>MovieMate</title>
-        <link rel="stylesheet" href="css/main.css">
+ 	<title>MovieMate</title>
         <meta charset="utf-8">
-		<meta name="viewport" content="width=device-width, initial-scale=1">
+    	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    	<meta http-equiv="x-ua-compatible" content="ie=edge">
+    	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css">
+    	<link href="css/bootstrap.min.css" rel="stylesheet">
+    	<link href="css/mdb.min.css" rel="stylesheet">
+    	<link href="css/main.css" rel="stylesheet">
     </head>
     <body>
-        <header>
-            <div class="navbar">
-                <a href="#">MovieMate</a>
-                <a href="#">Browse</a>
-                <a href="#">Search</a>
-                <a href="#">Login</a>
-            </div>
-        </header> 
+	     <?php
+            include 'navbar.php';
+        ?>
         <div class="container-fluid red lighten-1" style="height: 90vh">
             <div class="center-box red darken-4 white-text">
                 <div class="row-title">MovieMate Registration</div>
@@ -56,6 +55,8 @@
                 </form>
             </div>
         </div>
+	<!-- Footer -->
+	<div class="col-12 red darken-3" style="height: 3vh"></div>
 			<?php
 				$loginname = "";
 				$email = "";
