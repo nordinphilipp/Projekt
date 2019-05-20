@@ -51,6 +51,8 @@
                 </div>
             </div>
         </div>
+        <!-- Footer -->
+         <div class="col-12 red darken-3" style="height: 3vh"></div>
         <!--<object class="navbarObject" type="text/html" data="navbar.html" ></object>
             <div class="container-fluid">
                 <div class="row flex-grow-1" style="height:100vh" ;>
