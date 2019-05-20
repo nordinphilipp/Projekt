@@ -26,7 +26,7 @@
 				{
 					$loginname = $_POST['loginname'];
 					$password = $_POST['password'];
-					Add($loginname, $password);
+					checkPassword($loginname, $password);
 				}
 				/*
 				echo $fName;
@@ -70,26 +70,41 @@
 		}
 		</script>
 
-		<?php
-			while($row = $result->fetch_assoc())  // För att hämta data från SQL-databasen. Kolla rad 96
+<?php
+	session_start();
+	function checkPassword($loginname, $password)
+	{	
+	
+		$uname = "dbtrain_951";
+		$pass = "pqwkjl";
+		$host = "dbtrain.im.uu.se";
+		$dbname = "dbtrain_951";
+		$connection = new mysqli($host, $uname, $pass, $dbname);
+
+		if($connection->connect_error)
 			{
-				echo "<br />Användarnamn: ".$row["userName"]. " Lösenord:".$row["pw"];
-				echo "<br />";
-			} 
-		?>
-		<?php
-			function VerifyPassword($password, $hash)
-			{
-				if(password_verify($password, $hash))
-				{
-					//Lösenordet matchar med hashen som är lagrad i databasen. Användaren loggas in. Vart redirectas?
-				}
-				else
-				{
-					//$wrongPassword = "<"// Lösenordet matchade ej. Popup med texten "Fel lösenord eller användarnamn. Försök igen" Skriv i php 
-				}
+				die("Connection failed: ".$connection.connect_error);
 			}
-		?>
+				echo "Connection worked.";
+		
+		$userName = mysqli_real_escape_string($connection, $_POST['loginname']);
+		$password = mysqli_real_escape_string($connection, $_POST['password']);
+		$hash = password_hash($password, PASSWORD_DEFAULT);
+		$sql = "SELECT * FROM Comments WHERE userName='$loginname' AND pw='$hash'";
+		$result = $connection->query($sql);
+		if($result)
+		{
+			$_SESSION['logged_in'] = true;
+			$_SESSION['userName'] = $loginname;
+			header("Location: index.php"); //Redirect till index
+			
+		}
+		else
+		{
+			echo "Wrong password or username";
+		} 
+	} 
+?>
 	</body>
 </html>
 
