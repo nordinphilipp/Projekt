@@ -41,13 +41,7 @@ html, body {
     border: 1px solid #000;
     font-weight: 400;
 }
-row {
-    margin: auto;
-    height: 4vh;
-    padding-left: 1vh;
-    padding-right: 1vh;
-    background-color: yellow;
-}
+
 .row-title{
     text-align: center;
     padding: 5vh;
