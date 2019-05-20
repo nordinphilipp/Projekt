@@ -10,10 +10,9 @@
   <script src="bootstrap.min.js"></script>
 	<link href="css/main.css" rel="stylesheet" type="text/css" />
   </head>
-  <body style="background-color:rgb(79, 19, 6);">
-    <?php
-	include 'navbar.php';
-	?>
+	<body style="background-color:rgb(79, 19, 6);">
+	
+    <?php include 'navbar.php';?>
 	<div class="row" >
 		<div class="col-12">
 			<form action="" method="GET">

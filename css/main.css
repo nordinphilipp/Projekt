@@ -58,3 +58,14 @@ ul{
 .img {
     border-color: black;
 }
+
+.card{
+    margin-top:20px;
+}
+.miniature{
+    width: 50px;
+}
+
+body{
+    background-color:darkred;
+}
