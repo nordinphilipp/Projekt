@@ -8,17 +8,38 @@
     </head>
     <body>
 	<object type="text/html" class='navbarObject' data="navbar.html"></object>
-        <div class="articletwo">
-            <div class="centrebox">
-                <form name"minForm" onsubmit="return ValidateInfo()" method="POST"> <!-- GET istället för post? Redirect eller inte? -->
-                    Username/E-mail:
-                    <input type="text" name="loginname"><br>
-                    Password:
-                    <input type="text" name="password"><br>
-					<input type="submit" name="send" value="Skicka"/>
+        <div class="container-fluid red lighten-1" style="height: 90vh">
+            <div class="center-box red darken-4 white-text">
+                <div class="row-title">MovieMate Login</div>
+                <form name"minForm" onsubmit="return ValidateInfo()" method="POST">
+                    <div class="form-group row">
+                        <label for="staticEmail" class="col-sm-3 col-form-label">Email/Username:</label>
+                        <div class="col-sm-9">
+                            <input type="email" class="form-control" id="staticEmail" name="loginname" placeholder="user@mail.com">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <label for="inputPassword" class="col-sm-3 col-form-label">Password:</label>
+                        <div class="col-sm-9">
+                            <input type="password" class="form-control" id="inputPassword" name="password" placeholder="Password">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="form-group row">
+                        <div class="col-sm-8">
+                            Forgot password?<br>Register
+                        </div>
+                        <div class="col-sm-4">
+                            <button type="submit" class="btn red lighten-1" name="send" value="Skicka"/>Submit</button>
+                        </div>
+                    </div>
                 </form>
             </div>
         </div>
+    </div>
+        <!-- Footer -->
+        <div class="col-12 red darken-3" style="height: 3vh"></div>
 			<?php
 				$loginname = "";
 				$password = "";
