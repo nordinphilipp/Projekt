@@ -90,7 +90,7 @@
 		$userName = mysqli_real_escape_string($connection, $_POST['loginname']);
 		$password = mysqli_real_escape_string($connection, $_POST['password']);
 		$hash = password_hash($password, PASSWORD_DEFAULT);
-		$sql = "SELECT * FROM Comments WHERE userName='$loginname' AND pw='$hash'";
+		$sql = "SELECT * FROM users WHERE userName='$loginname' AND pw='$hash'";
 		$result = $connection->query($sql);
 		if($result)
 		{
