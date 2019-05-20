@@ -1,70 +1,66 @@
-* {
-    box-sizing: border-box
+html, body {
+    height: 100vh;
 }
 
-body {
-    font-family: Arial, Helvetica, sans-serif;
+.min-100 {
+    min-height: 100vh;
 }
-
-
-.topfeed {
-    height: 500px;
-    float: left;
-    width: 12.5%;
-    text-align: center;
-    padding: 12px;
-    background-color: rgb(139, 44, 24);
+.navbar{
 }
-.feedtopic {
-    height: 30px;
-    border-top: 1px solid black;
+.container-fluid{
+    border: 1px solid black;
+}
+.w-100{
     border-bottom: 1px solid black;
-    width: 115.5%;
-   padding-top: 5px;
-        margin: -12px;
 }
-.f {
-    height: 30px;
+.w-50{
+    border-bottom: 1px solid black;
+}
+.col-8{
+  border-left: 1px solid black;
+  border-right: 1px solid black;
+}
+.vertical-align {
+    display: flex;
+    align-items: center;
+}
+.col-4 red lighten-3 a {
+    height: 60vh;
     border: 1px solid black;
-    width: 120%;
-    padding-top: 5px;
-    margin: -12px;
 }
-.friendfeed {
-    height: 500px;
-    float: right;
-    width: 12.5%;
+.center-box {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: 99;
+    margin: auto;
+    height: 50vh;
+    width: 50vh;
+    border: 1px solid #000;
+    font-weight: 400;
+}
+row {
+    margin: auto;
+    height: 4vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
+    background-color: yellow;
+}
+.row-title{
     text-align: center;
-    padding: 12px;
-    background-color: rgb(139, 44, 24);
+    padding: 5vh;
 }
-.article {
-    height: 500px;
-    float: left;
-    width: 75%;
-    border: 1px solid black;
-    background-color: rgb(79, 19, 6)
+.form-group {
+    margin: auto;
+    height: 4vh;
+    padding-left: 1vh;
+    padding-right: 1vh;
 }
-.articletwo {
-    height: 500px;
-    float: left;
-    width: 100%;
-    border: 1px solid black;
-    background-color: rgb(79, 19, 6)
+ul{
+    display:flex;
 }
-.centrebox {
-    height: 60%;
-    width: 30%;
-    margin-top: 10%;
-    margin-left: 30%;
-    margin-right: 30%;
-    margin-bottom: 10%;
-    border: 1px solid black;
-    background-color: rgb(79, 19, 6)
+.img {
+    border-color: black;
 }
-
-body{
-    overflow: auto;
-}
-
-
