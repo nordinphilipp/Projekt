@@ -12,20 +12,9 @@
 
   </head>
   <body>
-  <nav class="navbar navbar-light red darken-4" >
-            <a class="navbar-brand nav-link active" href="#">MovieMate</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-                <div class="navbar-nav">
-                    <a class="nav-item nav-link" href="#">Browse</a>
-                    <a class="nav-item nav-link" href="#">Search</a>
-                    <a class="nav-item nav-link" href="#">Login</a>
-                </div>
-            </div>
-        </nav>
-  <?php   
+  
+	<?php 
+	include('navbar.php');
 	$id = $_GET['id'];
 	$content = file_get_contents("https://www.omdbapi.com/?i=$id&apikey=2c66b43f");
 	$arr = json_decode($content);
