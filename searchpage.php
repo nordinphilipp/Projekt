@@ -58,7 +58,18 @@
 					{
 					?>
 					<div class="card" style="min-width:200px;max-width:200px;float:left;">
-						<img class="card-img-top" src="<?php echo $test->Poster?>" alt="Card Image" style="min-height:300px;"/>
+						<?php
+						$pos = $test->Poster;
+						if($pos == 'N/A'):
+						?>
+						<img class="card-img-top" src="http://cherrycreek.nebo.edu/sites/cherrycreek.nebo.edu/files/styles/large/public/movie-20clapper-20clipart-movie-film-clip-art-1000_1000.png?itok=OcC2I6Kt" style="min-height:300px;"/>
+						<?php
+						else:
+						?>
+						<img class="card-img-top" src="<?php echo $test->Poster?>"style="min-height:300px;"/>
+						<?php
+						endif;
+						?>
 						<div class="card-body">
 						<p class="card-text"><a href="moviepage.php?id=<?php echo $test -> imdbID?>" class="stretched-link" style="color:black;"> <?php echo $test->Title?></a></p>
 						<p class="card-text"><?php echo $test->Year ?></p>	
