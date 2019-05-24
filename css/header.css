@@ -4,9 +4,8 @@ ul{
     margin:0;
     padding:0;
     overflow: hidden;
-    background-color: #791b1b;
+    background-color: #00000065;
     border-radius: 5px;
-    box-shadow: 5px 5px rgba(0, 0, 0, 0.575);
 }
 li{
     float:left;
