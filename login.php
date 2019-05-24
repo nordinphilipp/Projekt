@@ -89,13 +89,16 @@
 		
 		$userName = mysqli_real_escape_string($connection, $_POST['loginname']);
 		$password = mysqli_real_escape_string($connection, $_POST['password']);
-		$hash = password_hash($password, PASSWORD_DEFAULT);
-		$sql = "SELECT * FROM users WHERE userName='$loginname' AND pw='$hash'";
+		$sql = "SELECT password FROM users WHERE userName='$userName'";
 		$result = $connection->query($sql);
-		if($result)
+		while($row = $result->fetch_assoc())
+		{
+			$hashedPw = $row['password'];
+		}
+		if(password_verify($password, $hashedPw))
 		{
 			$_SESSION['logged_in'] = true;
-			$_SESSION['userName'] = $loginname;
+			$_SESSION['fName'] = $fName;
 			header("Location: index.php"); //Redirect till index
 			
 		}
