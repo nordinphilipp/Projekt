@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
  <head>
@@ -62,6 +62,19 @@
                                 </ul>
                             </div>
                         </div>
+                    </div>
+                    <br>
+                    <div class=col-12>
+                    Recent Lists<span style="float: right">View All</span>
+                    <div class=row d-flex align-items-center style="padding-top: 10px;">
+                    <div class=col-12 d-flex style="border: 1px solid black; background-color: gray; height: 11vh;">1. Halloween 2019<span style="float: right">View</span></div>
+                    </div>
+                    <div class=row>
+                    <div class=col-12 d-flex style="border: 1px solid black; background-color: gray; height: 11vh;">2. Bakisfilmer<span style="float: right">View</span></div>
+                    </div>
+                    <div class=row>
+                    <div class=col-12 d-flex style="border: 1px solid black; background-color: gray; height: 11vh;">3. Favoritdokumentärer<span style="float: right">View</span></div>
+                    </div>
                     </div>
                 </div>
                 <div class="col-2 red lighten-1">
