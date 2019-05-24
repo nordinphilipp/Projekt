@@ -11,9 +11,6 @@
     	<link href="css/main.css" rel="stylesheet">
     </head>
     <body>
-	     <?php
-            include 'navbar.php';
-        ?>
         <div class="container-fluid red lighten-1" style="height: 90vh">
             <div class="center-box red darken-4 white-text">
                 <div class="row-title">MovieMate Registration</div>
@@ -57,7 +54,7 @@
         </div>
 	<!-- Footer -->
 	<div class="col-12 red darken-3" style="height: 3vh"></div>
-			<?php
+<?php
 				$loginname = "";
 				$email = "";
 				$password = "";
@@ -70,12 +67,7 @@
 					$repeatPassword = $_POST['repeatPassword'];
 					Add($loginname, $email, $password);
 				}
-				/*
-				echo $fName;
-				echo $mail;
-				echo $comment;   För att se om det går att hämta data ur databasen. */
-			?>
-			<?php
+
 				$uname = "dbtrain_951";
 				$pass = "pqwkjl";
 				$host = "dbtrain.im.uu.se";
@@ -86,7 +78,6 @@
 					{
 						die("Connection failed: ".$connection.connect_error);
 					}
-						echo "Connection worked.";
 				
 				$query = "SELECT * FROM users";
 				$result = $connection->query($query); 
@@ -95,75 +86,64 @@
 		function ValidateInfo()
 		{
 			//var retur = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;		//Fixa denna så att den enbart kollar .@.
-			if(document.form.loginname.value == "") 				// Kollar om "användarnamn" i form är tom  OBS!! Fixa så att en tom sträng inte fungerar för att uppfylla detta villkor!!
+			if(document.minForm.loginname.value == "") 				// Kollar om "användarnamn" i form är tom  OBS!! Fixa så att en tom sträng inte fungerar för att uppfylla detta villkor!!
 			{
 				alert("Du har missat att fylla i namn");
 				return false;
 			} 
-			else if("/.+@.+\..+/".test(document.form.email.value == false))	// Ska det vara enbart form.email.value == false och inte document. före?
+			else if("/.+@.+\..+/".test(document.minForm.email.value == false))	// Ska det vara enbart form.email.value == false och inte document. före?
 			{
 				alert("Mailadressen: Felaktigt format");
 				return false;
 			}
-			else if(".{6,}/".test(document.form.password.value))	// Kollar så att det valda lösenordet innehåller minst 6 tecken. 
+			else if(".{6,}/".test(document.minForm.password.value))	// Kollar så att det valda lösenordet innehåller minst 6 tecken. 
 			{
 				alert("Du har missat att välja ett lösenord");
 				return false;
 			}
-			else if(!document.form.repeatPassword.value === document.form.password.value)	// Kollar upp om båda fälten för lösenorden är lika.
+			else if(!document.minForm.repeatPassword.value === document.minForm.password.value)	// Kollar upp om båda fälten för lösenorden är lika.
 			{
 				alert("Lösenorden i fälten stämmer inte överens. Testa igen!");
 				return false;
 			}
 			else
 			{
-				document.form.submit();
+				document.minForm.submit();
 			}
 		}
 		</script>
-		<?php
-			function Add($loginname, $email, $password)			// Funktion Add (som adderar till databasen i users) behöver fixas så att det ej går att registrera två användare med samma 																// nick och/eller lösenord
+<?php
+	function Add($loginname, $email, $password)
+	{	
+		$uname = "dbtrain_951";
+		$pass = "pqwkjl";
+		$host = "dbtrain.im.uu.se";
+		$dbname = "dbtrain_951";
+		$connection = new mysqli($host, $uname, $pass, $dbname);
+			if($connection->connect_error)
 			{
-				$uname = "dbtrain_951";
-				$pass = "pqwkjl";
-				$host = "dbtrain.im.uu.se";
-				$dbname = "dbtrain_951";
-				
-				$connection = new mysqli($host, $uname, $pass, $dbname);
-					if($connection->connect_error)
-					{
-						die("Connection failed: ".$connection.connect_error);
-					}
-						echo "Connection worked.";
-					
-				$loginname = my_mysqli_real_escape_string($connection, $_POST['loginname']); 
-				$email = my_mysqli_real_escape_string($connection, $_POST['email']); 
-				$password = mysqli_real_escape_string($connection, $_POST['password']);
-				$hash = password_hash($password, PASSWORD_DEFAULT);
-				
-				$sql = "INSERT INTO users(userName, email, pw) VALUES ('$loginname', 'email', '$hash')"; 
-				if(mysqli_query($connection, $sql))		// Detta kan raderas sedan om det fungerar att lägga till i databasen.
-				{
-					echo "Successful";
-					$userID = mysql_insert_id(); // Vad gör denna?
-					log_in($userID);
-					header("Location: index.php");
-				}
-				else if(preg_match("/^Duplicate.*email.*/i", mysql_error())) // Denna kollar ifall mysql_error() innehåller något error som säger att det redan finns samma mailadress, duplic
-				{
-					echo "Error";
-				}
+				die("Connection failed: ".$connection.connect_error);
 			}
-		?>
-		<?php
-			while($row = $result->fetch_assoc())  // För att hämta data från SQL-databasen. Kolla rad 96
-			{
-				echo "<br />Användarnamn: ".$row["userName"]. " Lösenord:".$row["pw"];
-				echo "<br />";
-			} 
-		?>
-
+		
+		$loginname = mysqli_real_escape_string($connection, $_POST['loginname']);
+		$email = mysqli_real_escape_string($connection, $_POST['email']);
+		$password = mysqli_real_escape_string($connection, $_POST['password']);
+		$hashedPw = password_hash($password, PASSWORD_DEFAULT);
+		$sql = "INSERT INTO users(userName, email, pw) VALUES ('$loginname', '$email', '$hashedPw')";
+		if(mysqli_query($connection, $sql))
+		{
+			$_SESSION['logged_in'] = true;
+			$_SESSION['loginname'] = $loginname;
+			header('location: index.php');
+		}
+		else
+		{
+			echo "Insertion error";
+		} 
+	}
+?>
+<?php
+ include 'navbar.php';
+ ?>
 	</body>
-	// Förslag på förbättringar: Vid något fel vid registrering, försvinner all data som de skrivit in? Spar i så fall all data bortsett från lösenordet när de får skriva in igen.
-	// Skriv ut felmeddelanden i php vid minForm istället för javascript. Se videon php form validation på studentportalen för mer info.
 </html>
