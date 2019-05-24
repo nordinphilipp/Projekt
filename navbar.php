@@ -19,16 +19,24 @@
 
 </head>
 
-   <nav class="navbar navbar-expand-lg navbar-light red darken-4" >
-        <a class="navbar-brand nav-link active" href="#">MovieMate</a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
-            <div class="navbar-nav">
-                <a class="nav-item nav-link" href="#">Browse</a>
-                <a class="nav-item nav-link" href="#">Search</a>
-                <a class="nav-item nav-link" href="#">Login</a>
+           <nav class="navbar navbar-expand-lg navbar-light red darken-4 justify-content-end" style="min-height: 7vh;">
+            <a class="navbar-brand nav-link active white-text" href="#"><b>MovieMate</b></a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse flow-grow-0" id="navbarSupportedContent">
+                <ul class="navbar-nav">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link white-text" href="#"><b>Browse</b></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link white-text" href="#"><b>Search</b></a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav ml-auto">
+                    <li class="nav-item">
+                        <a class="nav-item nav-link white-text" href="#" style="margin-right: 1vw;"><b>Login/Register</b></a>
+                    </li>
+                </ul>
             </div>
-        </div>
-    </nav>
+        </nav>
