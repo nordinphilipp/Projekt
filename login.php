@@ -1,4 +1,4 @@
-!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
     <head>
 	<title>MovieMate</title>
@@ -21,7 +21,7 @@
                     <div class="form-group row">
                         <label for="staticEmail" class="col-sm-3 col-form-label">Email/Username:</label>
                         <div class="col-sm-9">
-                            <input type="email" class="form-control" id="staticEmail" name="loginname" placeholder="user@mail.com">
+                            <input type="email" class="form-control" id="staticEmail" name="email" placeholder="user@mail.com">
                         </div>
                     </div>
                     <br>
@@ -49,11 +49,12 @@
 			<?php
 				$loginname = "";
 				$password = "";
-				if(isset($_POST["loginname"], $_POST["password"]))
+				$email = "";
+				if(isset($_POST["email"], $_POST["password"]))
 				{
-					$loginname = $_POST['loginname'];
+					$email = $_POST['email'];
 					$password = $_POST['password'];
-					checkPassword($loginname, $password);
+					checkPassword($email, $password);
 				}
 				/*
 				echo $fName;
@@ -80,12 +81,12 @@
 		function ValidateInfo()
 		{
 			var retur = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;		//Fixa denna så att den enbart kollar .@.
-			if(document.form.loginname.value == "") 				// Kollar om "namn" i form är tom  OBS!! Fixa så att en tom sträng inte fungerar för att uppfylla detta villkor!!
+			if(document.minForm.loginname.value == "") 				// Kollar om "namn" i form är tom  OBS!! Fixa så att en tom sträng inte fungerar för att uppfylla detta villkor!!
 			{
 				alert("Du har missat att fylla i namn");
 				return false;
 			} 
-			else if(document.form.password.value == "")	// Kollar om "m i form är skrivet i rätt format i form.
+			else if(document.minForm.password.value == "")	// Kollar om "m i form är skrivet i rätt format i form.
 			{
 				alert("Du har missat att välja ett lösenord");
 				return false;
@@ -99,7 +100,7 @@
 
 <?php
 	session_start();
-	function checkPassword($loginname, $password)
+	function checkPassword($email, $password)
 	{	
 	
 		$uname = "dbtrain_951";
@@ -114,15 +115,23 @@
 			}
 				echo "Connection worked.";
 		
-		$userName = mysqli_real_escape_string($connection, $_POST['loginname']);
+		$email = mysqli_real_escape_string($connection, $_POST['email']);
 		$password = mysqli_real_escape_string($connection, $_POST['password']);
+<<<<<<< HEAD
+		$sql = "SELECT password FROM users WHERE email='$email'";
+=======
 		$hash = password_hash($password, PASSWORD_DEFAULT);
 		$sql = "SELECT * FROM users WHERE userName='$loginname' AND pw='$hash'";
+>>>>>>> f14f7bd1bd15678f86d652df2376958c4f74040e
 		$result = $connection->query($sql);
 		if($result)
 		{
 			$_SESSION['logged_in'] = true;
+<<<<<<< HEAD
+			$_SESSION['loginname'] = $loginname;
+=======
 			$_SESSION['userName'] = $loginname;
+>>>>>>> f14f7bd1bd15678f86d652df2376958c4f74040e
 			header("Location: index.php"); //Redirect till index
 			
 		}
@@ -134,3 +143,4 @@
 ?>
 	</body>
 </html>
+
