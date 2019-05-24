@@ -9,22 +9,13 @@
 		$search_name = mysql_query("SELECT * FROM lists WHERE('name' LIKE '%".$query."%')"); // Söker efter namn på listor som innehåller sökordet
 	}
 	
-	if(mysql_num_rows($search_name) > 0)
-	{
+	if(mysql_num_rows($search_name) > 0){
 		while($result = mysql_fetch_array($search_name))
 		{
-                echo "<p>".$result['name']."</p>";
-            }
+            echo "<p>".$result['name']."</p>";
+        }
              
-        }
-        else
-		{ 
-            echo "Inget hittades";
-        }
-         
-    }
-    else
-	{ 
-        echo "Söktermen måste innehålla minst 3 bokstäver";
-    }
+    }else{ 
+			echo "Inget hittades";
+	}
 ?>
