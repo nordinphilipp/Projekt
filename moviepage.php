@@ -27,7 +27,7 @@
 		<div class="col"></div>
 		<div class="col">
 		<form action="#" method="GET">
-			<input type="hidden" name="id" value="<?php echo $test -> imdbID?>" style="visibility:hidden;">
+			<input type="hidden" name="id" value="<?php echo $arr -> imdbID?>" style="visibility:hidden;">
 			<input type="submit" name="submit" class="btn btn-dark" value="Add To A List" style="float:right">
 		</form>	
 		</div>
