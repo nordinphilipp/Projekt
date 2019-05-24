@@ -5,28 +5,13 @@ html, body {
 .min-100 {
     min-height: 100vh;
 }
-.navbar{
-}
-.container-fluid{
-    border: 1px solid black;
-}
-.w-100{
-    border-bottom: 1px solid black;
-}
-.w-50{
-    border-bottom: 1px solid black;
-}
-.col-8{
-  border-left: 1px solid black;
-  border-right: 1px solid black;
-}
+
 .vertical-align {
     display: flex;
     align-items: center;
 }
 .col-4 red lighten-3 a {
     height: 60vh;
-    border: 1px solid black;
 }
 .center-box {
     position: absolute;

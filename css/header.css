@@ -1,0 +1,30 @@
+
+ul{
+    list-style-type: none;
+    margin:0;
+    padding:0;
+    overflow: hidden;
+    background-color: #791b1b;
+    border-radius: 5px;
+    box-shadow: 5px 5px rgba(0, 0, 0, 0.575);
+}
+li{
+    float:left;
+}
+.right{
+    float:right;
+}
+li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    border-radius: 5px;
+}
+li a:hover{
+    background-color:rgba(0, 0, 0, 0.527);
+
+    text-decoration: none;
+
+}
