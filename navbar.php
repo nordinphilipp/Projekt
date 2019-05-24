@@ -7,8 +7,6 @@
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.1/css/all.css">
     <!-- Bootstrap core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
-    <!-- Material Design Bootstrap -->
-    <link href="css/mdb.min.css" rel="stylesheet">
     <!-- Your custom styles (optional) -->
     <link href="css/style.css" rel="stylesheet">
     <link rel="stylesheet" href="main.css">
@@ -19,8 +17,8 @@
 
 </head>
 
-           <nav class="navbar navbar-expand-lg navbar-light red darken-4 justify-content-end" style="min-height: 7vh;">
-            <a class="navbar-brand nav-link active white-text" href="#"><b>MovieMate</b></a>
+           <nav class="navbar navbar-expand-lg navbar-light justify-content-end" style="min-height: 7vh;">
+            <a class="navbar-brand nav-link active" href="#"><b>MovieMate</b></a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -30,7 +28,10 @@
                         <a class="nav-item nav-link white-text" href="#"><b>Browse</b></a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-item nav-link white-text" href="#"><b>Search</b></a>
+                        <form class="form-inline"action="searchpage.php?title=" method="GET" id="search_form">
+                        <i class="fas fa-search" aria-hidden="true"></i>
+                        <input class="form-control form-control-sm ml-3 w-75" name="title" type="text" placeholder="Search" aria-label="Search">
+                        </form>
                     </li>
                 </ul>
                 <ul class="navbar-nav ml-auto">
@@ -40,3 +41,16 @@
                 </ul>
             </div>
         </nav>
+        <script>
+$(document).ready(function() {
+  $('#autolocation').keydown(function(event) {
+    // enter has keyCode = 13
+    if (event.keyCode == 13) {
+      $('#search_form')submit(); // submit the form
+      return false;
+    }
+  });
+});
+</script>
+
+

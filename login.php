@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+!DOCTYPE html>
 <html lang="en">
     <head>
 	<title>MovieMate</title>
@@ -116,16 +116,13 @@
 		
 		$userName = mysqli_real_escape_string($connection, $_POST['loginname']);
 		$password = mysqli_real_escape_string($connection, $_POST['password']);
-		$sql = "SELECT password FROM users WHERE userName='$userName'";
+		$hash = password_hash($password, PASSWORD_DEFAULT);
+		$sql = "SELECT * FROM users WHERE userName='$loginname' AND pw='$hash'";
 		$result = $connection->query($sql);
-		while($row = $result->fetch_assoc())
-		{
-			$hashedPw = $row['password'];
-		}
-		if(password_verify($password, $hashedPw))
+		if($result)
 		{
 			$_SESSION['logged_in'] = true;
-			$_SESSION['fName'] = $fName;
+			$_SESSION['userName'] = $loginname;
 			header("Location: index.php"); //Redirect till index
 			
 		}
@@ -137,4 +134,3 @@
 ?>
 	</body>
 </html>
-
