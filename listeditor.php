@@ -115,11 +115,6 @@ function thumbsdown(x){
 	var element2 = document.getElementById("down" + x);
 	element2.style.opacity = "1";
 	   
-	var x =  "up";
-	
-	xmlhttp.open("GET", "gethint.php?rating=" + x + "&listID = "++", true);
-    xmlhttp.send();
-	   
 	   
   return false;
 }
