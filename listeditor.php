@@ -1,3 +1,4 @@
+<!--Detta skulle behöva flyttas till rätt-->
 <?php
 include 'navbar.php';
 $connect = new mysqli('localhost', 'root','','testprojekt');

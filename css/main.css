@@ -26,7 +26,6 @@ html, body {
     border: 1px solid #000;
     font-weight: 400;
 }
-
 .row-title{
     text-align: center;
     padding: 5vh;
@@ -37,7 +36,7 @@ html, body {
     padding-left: 1vh;
     padding-right: 1vh;
 }
-ul{
+ul.movie_list{
     display:flex;
 }
 .img {
@@ -54,3 +53,4 @@ ul{
 body{
     background-color:darkred;
 }
+

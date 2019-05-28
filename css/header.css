@@ -1,5 +1,4 @@
-
-ul{
+ul.header{
     list-style-type: none;
     margin:0;
     padding:0;
@@ -7,13 +6,19 @@ ul{
     background-color: #00000065;
     border-radius: 5px;
 }
-li{
+ul.header > li.left{
     float:left;
 }
-.right{
+ul.header > li.right{
     float:right;
 }
-li a {
+ul.header > li.rightmost{
+    background-color: rgba(255, 0, 0, 0.541);
+}
+ul.header > li.rightmost a:hover {
+    background-color: rgba(255, 0, 0, 0.829);
+}
+ul.header > li a {
     display: block;
     color: white;
     text-align: center;
@@ -26,4 +31,10 @@ li a:hover{
 
     text-decoration: none;
 
+}
+.fa-search{
+    color:white;
+}
+.form-inline{
+    margin-top:10px;
 }
