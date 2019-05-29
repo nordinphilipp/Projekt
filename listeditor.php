@@ -1,5 +1,6 @@
 <?php
 include('include/bootstrap.php');
+include('include/method/editorfunctions.php');
 $connect = new mysqli('localhost', 'root','','testprojekt');
 $listid = 1;
 $query = "select name from list where listID = '$listid'";
@@ -14,10 +15,10 @@ $title = $res['name'];
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
   <link href="css/main.css" rel="stylesheet" type="text/css" />
-  <script src='assets/js/editor.js'></script>
+  <script src="editor.js"></script>
   </head>
   <body>
 
@@ -32,15 +33,9 @@ $title = $res['name'];
 	<div class="row">
 	<?php 
 	$co = 0;
-	$result = mysqli_query($connect, "SELECT * FROM listrelation where listID = '$listid' ORDER BY orderinlist DESC LIMIT 1");
-	$row = mysqli_fetch_array($result);
-	$length=$row['orderinlist'];
-	if(!is_numeric($length))
-	{
-		$length = 0;
-	}
-	$query = "select * from listrelation where listID = '$listid' order by orderinlist asc";//välj inlägg med nyast först
-	$check = $connect->query($query);
+	$length = returnorder($listid);
+	$check = fetchlist($listid);
+	
 	while($row = $check->fetch_array())//gå igenom alla resultat
 	{
 	$id = $row['movieID'];
