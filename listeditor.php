@@ -1,6 +1,6 @@
 <?php
 include('include/bootstrap.php');
-include('include/method/editorfunctions.php');
+include('include/methods/editorfunctions.php');
 $connect = new mysqli('localhost', 'root','','testprojekt');
 $listid = 1;
 $query = "select name from list where listID = '$listid'";
