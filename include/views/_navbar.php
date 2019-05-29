@@ -10,6 +10,8 @@
             <li class="right rightmost"><a href="login.php">Logga in</a></li>
         <?php }?>
 
+        <li class="right"><a href="list.php">Listor</a></li>
+
         <li class="nav-item right">
             <form class="form-inline" action="searchpage.php?title=" method="GET" id="search_form">
                 <i class="fas fa-search" aria-hidden="true"></i>

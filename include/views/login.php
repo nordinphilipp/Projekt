@@ -1,7 +1,7 @@
 	<html lang="en">
         <body>
-			<div class="container-fluid red lighten-1" style="height: 90vh">
-				<div class="center-box red darken-4 white-text">
+			<div class="container-fluid red darken-4" style="height: 90vh">
+				<div class="center-box grey darken-4  white-text">
 					<div class="row-title">MovieMate Login</div>
                     
                         <form name="minForm" onsubmit="return validateLogin()" method="POST">
