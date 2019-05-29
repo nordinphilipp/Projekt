@@ -18,7 +18,7 @@ $title = $res['name'];
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <link href="css/main.css" rel="stylesheet" type="text/css" />
-  <script src="editor.js"></script>
+  <script src="assets/js/editor.js"></script>
   </head>
   <body>
 
