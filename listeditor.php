@@ -1,71 +1,12 @@
-<!--Detta skulle behöva flyttas till rätt-->
 <?php
 include 'navbar.php';
 $connect = new mysqli('localhost', 'root','','testprojekt');
-$listid = $_GET['list'];
+$listid = 1;
 
 $query = "select name from list where listID = '$listid'";
 $check = $connect->query($query);
 $res = $check -> fetch_array();
 $title = $res['name'];
-
-/*
-$selectall = "select * from listrelation where listID = '$listid'";
-$check = $connect->query($selectall);
-$count = 0;
-$movieids = array();
-$orders = array();
-$ratings = array();
-while($row = $check->fetch_array())//gå igenom alla resultat
-{
-	$movieids[] = $row['movieID'];
-	$orders[] = $row['orderinlist'];
-	$ratings[] = $row['rating'];
-	$count = $count + 1;
-}*/
-if(isset($_GET['swap']))
-{
-	foreach($_GET['swapitems'] as $value){
-		$swaps[] = $value;
-	}
-	$key1 = $swaps[0];
-	$key2 = $swaps[1];
-	
-	/*$pos1 = array_search($key1,$movieids);
-	$pos2 = array_search($key2,$movieids);
-	
-	$temp = $movieids[$pos1];
-	$movieids[$pos1] = $movieids[$pos2];
-	$movieids[$pos2] = $temp;
-	
-	$temp = $ratings[$pos1];
-	$ratings[$pos1] = $ratings[$pos2];
-	$ratings[$pos2] = $temp;*/
-	
-
-	
-	$query = "select orderinlist from listrelation where movieID = '$key1' and listID = '$listid'";
-	$check = $connect->query($query);
-	$o1 = $check -> fetch_array();
-	
-	$query2 = "select orderinlist from listrelation where movieID = '$key2' and listID = '$listid'";
-	$check2 = $connect->query($query2);
-	$o2 = $check2 -> fetch_array();
-	
-	$order1 = $o1['orderinlist'];
-	$order2 = $o2['orderinlist'];
-
-	$q = "update listrelation set orderinlist = 0 where orderinlist = $order1";
-	$check = $connect->query($q);
-	
-	$q2 = "update listrelation set orderinlist = $order1 where orderinlist = $order2";
-	$check = $connect->query($q2);
-	
-	$q3 = "update listrelation set orderinlist = $order2 where orderinlist = 0";
-	$check = $connect->query($q3);
-	header('location:listeditor.php?list=' . $listid);
-}
-
 
 ?>
 <!DOCTYPE html>
@@ -78,6 +19,7 @@ if(isset($_GET['swap']))
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+  <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-3.4.0.min.js"></script>
   <script src="bootstrap.min.js"></script>
   <link href="css/main.css" rel="stylesheet" type="text/css" />
   
@@ -85,39 +27,113 @@ if(isset($_GET['swap']))
   
   var limit = 2;
   var counter = 0;
-function checkbox(x){
-	if(document.getElementById(x).checked == true)
-	{
-	counter = counter + 1;	
-		if(counter > 2)
-		{
-		document.getElementById(x).checked = false;
-		}
-	}
+  var swapcounter = 0;
+  var clickedon = ["",""];
+  var moviearr = ["",""];
+  var idarr = ["",""];
+  var loading = 0;
+  
+function thumbs(x){
 	
-	if(document.getElementById(x).checked == false)
-	{
-	counter = counter - 1;	
-	}
+	var element = document.getElementById('thumbs' + x).id;
+	var list = document.getElementById('listid').value;
+	var movie = document.getElementById('movie' + x).value;
+
 	
-}
-function thumbsup(x){
-	var element = document.getElementById("down" + x);
-	element.style.opacity = "0.3";
-	var element2 = document.getElementById("up" + x);
-	element2.style.opacity = "1";
+	if (document.getElementById(element).src == "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartwork.com%2Fwp-content%2Fuploads%2F2017%2F02%2Fclipart-for-thumbs-up.png&f=1") 
+    {
+		$.ajax({
+		type: 'GET',
+		url: 'rating.php?list='+list+'&rating=down&movie=' + movie,
+	success: function (data) {
+
+		document.getElementById(element).src = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fsignaturesatori.com%2Fwp-content%2Fuploads%2F2017%2F03%2Fthumbs-down.png&f=1"; 
+ 
+  }
+});
+			
+
+	}
+    else 
+    {
+		$.ajax({
+		type: 'GET',
+		url: 'rating.php?list='+list+'&rating=up&movie=' + movie,
+		success: function (data) {
+		document.getElementById(element).src = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartwork.com%2Fwp-content%2Fuploads%2F2017%2F02%2Fclipart-for-thumbs-up.png&f=1"; 
+									}
+		});
+     
+	}
   return false;
 }
 
-function thumbsdown(x){
+function swapitems(x){
 	
-	var element = document.getElementById("up" + x);
-	element.style.opacity = "0.3";
-	var element2 = document.getElementById("down" + x);
-	element2.style.opacity = "1";
-	   
-	   
-  return false;
+	if(loading == 0)
+	{
+	loading = 1;
+	var list = document.getElementById('listid').value;
+	var movie = document.getElementById('movie' + x).value;
+	swapcounter = swapcounter + 1;
+	
+	
+	
+	if(swapcounter==1)
+	{
+		moviearr[0] = movie;
+		clickedon[0] = document.getElementById(x);
+		clickedon[0].style.backgroundColor = "#a6a6a6";
+		idarr[0] = x;
+	}
+	else if(swapcounter == 2)
+	{
+		
+		moviearr[1] = movie;
+		clickedon[1] = document.getElementById(x);
+		clickedon[1].style.backgroundColor = "#a6a6a6";
+		idarr[1] = x;
+		$.ajax
+		(
+		{
+		type: 'GET',
+		url: 'swap.php?list='+list+'&movie1='+ moviearr[0] +'&movie2=' + moviearr[1],
+		success: function (data) 
+		{
+			
+			
+			var hold = "";
+			hold = document.getElementById('thumbs'+idarr[0]).src;
+			document.getElementById('thumbs'+idarr[0]).src = document.getElementById('thumbs'+idarr[1]).src;
+			document.getElementById('thumbs'+idarr[1]).src = hold;
+			
+			
+			hold = document.getElementById('thumbs'+idarr[0]).id;
+			document.getElementById('thumbs'+idarr[0]).id = document.getElementById('thumbs'+idarr[1]).id;
+			document.getElementById('thumbs'+idarr[1]).id = hold;
+			
+		
+			
+			clickedon[0].style.backgroundColor = "#d9d9d9";
+			clickedon[1].style.backgroundColor = "#d9d9d9";
+			
+			var clonedElement1 = clickedon[0].cloneNode(true);
+			var clonedElement2 = clickedon[1].cloneNode(true);
+			
+			clickedon[1].parentNode.replaceChild(clonedElement1, clickedon[1]);
+			clickedon[0].parentNode.replaceChild(clonedElement2, clickedon[0]);
+			
+		}
+		}
+		);
+		
+		
+		swapcounter = 0;
+	}
+	
+	loading = 0;
+	
+	}
 }
 
   </script>
@@ -133,8 +149,6 @@ function thumbsdown(x){
 	<div class="col4"> <h1 style="border-bottom:1px solid black;"><?php echo $title ?></h1></div>
 	</div>
 	<div class="row">
-	<form action="listeditor.php" method="get" name="formedit">
-	<input type="submit" value="Swap" name="swap">
 	<?php 
 	$co = 0;
 	$result = mysqli_query($connect, "SELECT * FROM listrelation where listID = '$listid' ORDER BY orderinlist DESC LIMIT 1");
@@ -150,41 +164,49 @@ function thumbsdown(x){
 	{
 	$id = $row['movieID'];
 	$co = $co + 1;
-	$thumbsup = "up" . $co;
-	$thumbsdown = "down" . $co;
+	$thumbs = "thumbs" . $co;
 	$content = file_get_contents("https://www.omdbapi.com/?i=$id&apikey=2c66b43f");
 	$arr = json_decode($content);
 	?>
-		<div class="row">
-			<div class="col-2">
-				<input type="checkbox" id="<?php echo $co?>" value="<?php echo $arr->imdbID ?>" name="swapitems[]" onchange="checkbox(this.id)">
+		<div class="row" style="width:100%;min-height:100px;padding:20px;">
+
+			<div class="col-1">
+			<h2 style="font-size:50px;color:black;"><?php echo $co?></h2>
 			</div>
-			
-			<div class="col-10" style="height:10vh;width:100%;">
+			<div class="col-10" id="<?php echo $co ?>" onclick="swapitems(this.id)" style="height:100%;border-right:1px solid black;">
 				<div class="row">
 				
+					<input type="hidden" id="movie<?php echo $co?>" value="<?php echo $arr->imdbID ?>">
+					<input type="hidden" id="listid" value="<?php echo $listid?>" name="list">
 					<div class="col-3" style="height:20vh;">
-						<img src="<?php echo $arr-> Poster ?>"  style="max-height:9.8vh;"/>
+						<img src="<?php echo $arr-> Poster ?>"  id="poster<?phpecho $co?>"style="max-height:9.8vh;"/>
 					</div>
 					
 					<div class="col-8">
-						<h4><?php echo $arr-> Title ?></h4>
-						<h5><?php echo $arr-> Year ?></h5>
-					</div>
-					
-					<div class="col-1">
-						<img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartwork.com%2Fwp-content%2Fuploads%2F2017%2F02%2Fclipart-for-thumbs-up.png&f=1" id="<?php echo $thumbsup?>" style="height:30px;" onclick="thumbsup(<?php echo $co?>)"/>
-						<img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fsignaturesatori.com%2Fwp-content%2Fuploads%2F2017%2F03%2Fthumbs-down.png&f=1" id="<?php echo $thumbsdown?>" style="height:30px;"onclick="thumbsdown(<?php echo $co?>)"/>
+						<h4 id="title<?phpecho $co?>"><?php echo $arr-> Title ?></h4>
+						<h5 id="year<?phpecho $co?>"><?php echo $arr-> Year ?></h5>
 					</div>
 				</div>
 			</div>	
+			<div class="col-1">
+
+					<?php
+					if($row['rating'] == "up"):
+					?>
+						<img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartwork.com%2Fwp-content%2Fuploads%2F2017%2F02%2Fclipart-for-thumbs-up.png&f=1" id="<?php echo $thumbs?>" style="height:30px;" onclick="thumbs(<?php echo $co?>)"/>
+
+					
+					<?php
+					else:?>
+						<img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fsignaturesatori.com%2Fwp-content%2Fuploads%2F2017%2F03%2Fthumbs-down.png&f=1" id="<?php echo $thumbs?>" style="height:30px;"onclick="thumbs(<?php echo $co?>)"/>
+					<?php endif;?>
+
+			</div>
 		</div>	
 	<?php
 	}
 	?>
-	<input type="hidden" value="<?php echo $listid?>" name="list">
-		
-	</form>
+
 	</div>
 	</div>
 	<div class="col-1"></div>
@@ -214,7 +236,7 @@ function thumbsdown(x){
 						$title = str_replace(" ", "+",$hold);
 						$content = file_get_contents("https://www.omdbapi.com/?s=$title&type=movie&apikey=2c66b43f");
 						$arr = json_decode($content);
-						
+						$count = 0;
 						
 						if($arr -> Response == "False" )
 						{
@@ -231,14 +253,15 @@ function thumbsdown(x){
 							<?php
 							foreach($arr -> Search as $test)
 							{
+								$count = $count + 1;
 							?>
 							<div class="card" style="min-width:200px;max-width:250px;float:left;min-height:80px;max-height:100px;">
 								<div class="row">
 									<div class="col">
-									<a href="add.php?id=<?php echo $test -> imdbID?>&list=<?php echo 1 ?>&length=<?php echo $length ?>" class="stretched-link" style="color:black;"><?php echo $test->Title . " " . $test->Year ?> </a>
+									<a href="" class="stretched-link" style="color:black;"><?php echo $test->Title . " " . $test->Year ?> </a>
 									</div>
 									<div class="col">
-									<a href="add.php?id=<?php echo $test -> imdbID?>&list=<?php echo 1 ?>&length=<?php echo $length ?>" class="stretched-link" style="color:black;">
+									<a href="" class="stretched-link" style="color:black;">
 									<img src="https://proxy.duckduckgo.com/iu/?u=http%3A%2F%2Fpngimg.com%2Fuploads%2Fplus%2Fplus_PNG26.png&f=1" style="height:50px;float:right;"/></a>
 									</div>
 								</div>
