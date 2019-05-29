@@ -52,5 +52,6 @@ ul.movie_list{
 
 body{
     background-color:darkred;
+    overflow: auto;
 }
 
