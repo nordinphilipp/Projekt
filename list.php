@@ -62,13 +62,13 @@
 	
 		<div class="row" style="width:100%;min-height:100px;padding:20px;">
 
-			<div class="col-10" id="<?php echo $co ?>" onclick="swapitems(this.id)" style="height:100%;border-right:1px solid black;">
+			<div class="col-10" id="" style="height:100%;border-right:1px solid black;">
 				<div class="row">
 				
-					<input type="hidden" id="movie<?php echo $co?>" value="<?php echo $arr->imdbID ?>">
+					<input type="hidden" id="movie" value="<?php echo $arr->imdbID ?>">
 					<input type="hidden" id="listid" value="<?php echo $listid?>" name="list">
 					<div class="col-3" style="height:20vh;">
-						<img src="<?php echo $arr-> Poster ?>"  id="poster<?phpecho $co?>"style="max-height:9.8vh;"/>
+						<img src="<?php echo $arr-> Poster ?>"  id="poster"style="max-height:9.8vh"/>
 					</div>
 					
 					<div class="col-8">
