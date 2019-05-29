@@ -17,7 +17,7 @@ function thumbs(x){
     {
 		$.ajax({
 		type: 'GET',
-		url: 'rating.php?list='+list+'&rating=down&movie=' + movie,
+		url: 'include/methods/rating.php?list='+list+'&rating=down&movie=' + movie,
 	success: function (data) {
 
 		document.getElementById(element).src = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fsignaturesatori.com%2Fwp-content%2Fuploads%2F2017%2F03%2Fthumbs-down.png&f=1"; 
@@ -31,7 +31,7 @@ function thumbs(x){
     {
 		$.ajax({
 		type: 'GET',
-		url: 'rating.php?list='+list+'&rating=up&movie=' + movie,
+		url: 'include/methods/rating.php?list='+list+'&rating=up&movie=' + movie,
 		success: function (data) {
 		document.getElementById(element).src = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartwork.com%2Fwp-content%2Fuploads%2F2017%2F02%2Fclipart-for-thumbs-up.png&f=1"; 
 									}
@@ -70,7 +70,7 @@ function swapitems(x){
 		(
 		{
 		type: 'GET',
-		url: 'swap.php?list='+list+'&movie1='+ moviearr[0] +'&movie2=' + moviearr[1],
+		url: 'include/methods/swap.php?list='+list+'&movie1='+ moviearr[0] +'&movie2=' + moviearr[1],
 		success: function (data) 
 		{
 			
