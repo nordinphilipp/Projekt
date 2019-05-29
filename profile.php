@@ -1,11 +1,14 @@
 <?php
     include('include/bootstrap.php');
+    include('include/process/fetchUser_process.php');
     include('include/views/profile.php');
-?>
-        
+    
+    
+?>        
         <!-- Footer -->
-        <div class="col-12 red darken-3" style="height: 3vh"></div>
+    <div class="col-12 red darken-3" style="height: 3vh">
     </div>
+        
     <!-- SCRIPTS -->
     <!-- JQuery -->
     <script type="text/javascript" src="js/jquery-3.4.0.min.js"></script>

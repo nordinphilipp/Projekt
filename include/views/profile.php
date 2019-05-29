@@ -1,4 +1,6 @@
-<?php if(!empty($_SESSION['logged_in'])){?> 
+<?php 
+if(!empty($_SESSION['logged_in'])){
+    ?> 
     <html>
         <body>
             <div class="container-fluid">
@@ -16,7 +18,14 @@
                         <div class="container-fluid white-text" style="border:0px;">
                             <div class="row" style="height: 100%;">
                                 <div class="col">
-                                    <img src="img/gustav.png" alt="..." class="img-thumbnail" style="height:50%;">
+                                    <img src=<?= $img ?> alt="Profile picture" class="img-thumbnail" style="height:50%;">
+                                    
+                                    <form action="upload_process.php" method="POST" enctype="multipart/form-data">
+                                        <label for="uploadFile">Byt profilbild</label><br>
+                                        <input type="file" name="uploadFile" id="uploadFile"><br>
+                                        <input type="submit" value="ladda upp" name="submit">
+                                    </form>
+                                
                                 </div>
                                 <div class="col">
                                 </div>

@@ -27,6 +27,7 @@
             $_SESSION['logged_in'] = true;
             $_SESSION['username'] = $row['username'];
             $_SESSION['userID'] = $row['userID'];
+            $_SESSION['img'] = $row['img'];
 
             $connection->close();
             header("Location: index.php"); //Redirect till index           
@@ -63,7 +64,6 @@
         }        
     }
 
-
     function checkUser($username, $email){
         //connect to db
         include('include/process/connect_process.php');
@@ -86,6 +86,42 @@
             $connection->close();
             echo 'User already exists';
             return false;
+        }
+    }
+
+    function fetchUser($userID){
+        //connect to db
+        include('include/process/connect_process.php');
+        
+        //fetch relevant data
+        $query = "SELECT username, email, img FROM users WHERE userID = '$userID'";
+        $result = $connection->query($query);
+        if($connection->query($query) !== FALSE) {
+            $connection->close();
+            //return associative array with query result
+            return mysqli_fetch_assoc($result);
+        }else{
+            echo "Error: " . $query . "<br>" . $connection->error;
+            $connection->close();
+        }
+    }
+
+    function changeUserImg($dir){
+
+        include('include/process/connect_process.php');
+
+        $username = mysqli_real_escape_string($connection, $_SESSION['username']);
+        $dir = mysqli_real_escape_string($connection, $dir);
+        
+        $query = "UPDATE users SET img='$dir' WHERE username= '$username'";
+
+        $result = $connection->query($query);
+        if($connection->query($query) !== FALSE){
+            echo 'Din rofilbild har ändrats';
+            $connection->close();
+        }else{
+            echo 'Någonting gick fel';
+            $connection-close();
         }
     }
 ?>
