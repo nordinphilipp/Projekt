@@ -107,35 +107,28 @@ function swapitems(x){
 		success: function (data) 
 		{
 			
+			
 			var hold = "";
 			hold = document.getElementById('thumbs'+idarr[0]).src;
 			document.getElementById('thumbs'+idarr[0]).src = document.getElementById('thumbs'+idarr[1]).src;
 			document.getElementById('thumbs'+idarr[1]).src = hold;
 			
 			
+			hold = document.getElementById('thumbs'+idarr[0]).id;
+			document.getElementById('thumbs'+idarr[0]).id = document.getElementById('thumbs'+idarr[1]).id;
+			document.getElementById('thumbs'+idarr[1]).id = hold;
+			
+		
+			
 			clickedon[0].style.backgroundColor = "#d9d9d9";
 			clickedon[1].style.backgroundColor = "#d9d9d9";
 			
-
 			var clonedElement1 = clickedon[0].cloneNode(true);
 			var clonedElement2 = clickedon[1].cloneNode(true);
-
+			
 			clickedon[1].parentNode.replaceChild(clonedElement1, clickedon[1]);
 			clickedon[0].parentNode.replaceChild(clonedElement2, clickedon[0]);
 			
-			hold = document.getElementById('title'+idarr[0]).id;
-			document.getElementById('title'+idarr[0]).id = document.getElementById('title'+idarr[1]).id;
-			document.getElementById('title'+idarr[1]).id = hold;
-			
-			
-			hold = document.getElementById('year'+idarr[0]).id;
-			document.getElementById('year'+idarr[0]).id = document.getElementById('year'+idarr[1]).id;
-			document.getElementById('year'+idarr[1]).id = hold;
-			
-			
-			hold = document.getElementById('poster'+idarr[0]).id;
-			document.getElementById('poster'+idarr[0]).id = document.getElementById('poster'+idarr[1]).id;
-			document.getElementById('poster'+idarr[1]).id = hold;
 		}
 		}
 		);
