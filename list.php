@@ -30,6 +30,7 @@
 			$userrr = $connect ->query($userr);
 			$resuu = $userrr -> fetch_array();
 			$userfinal = $resuu['username'];
+			
 						
 			
         ?>
@@ -61,6 +62,12 @@
 						{
 							$id = $row['movieID'];
 							$order = $row['orderinlist'];
+							$query2 = "SELECT rating FROM movies1 WHERE movieID = '$id'";
+							$check = $connect->query($query2);
+						while($row = $check->fetch_assoc())
+						{	
+							$rating = $row['rating'];
+						}
 							$content = file_get_contents("http://www.omdbapi.com/?i=$id&apikey=2c66b43f");
 							$arr = json_decode($content);
 							?>
@@ -71,7 +78,26 @@
                             <td style="text-align: center;"><?php echo $arr-> Year ?></td>
                             <td style="text-align: center;"><?php echo $arr-> Runtime ?></td>
                             <!--<td style="text-align: center;">Yes</td>-->
-                            <td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->TMB_DOWN</td>
+                             <?php
+							if($rating == "0")
+							{
+							?>
+							<td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->Neutral</td>
+							<?php
+							}
+							elseif($rating == "1")
+							{
+							?>
+							<td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->TMB_UP</td>
+							<?php
+							}
+							elseif($rating == "2")
+							{
+							?>
+							<td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->TMB_DOWN</td>
+							<?php
+							}
+							?>
                         </tr>
 						<?php
 						}
