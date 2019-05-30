@@ -62,7 +62,6 @@
 						{	
 							$rating = $row['rating'];
 						}
-						
                         //foreach()
 	?>
 	
@@ -90,7 +89,26 @@
                             <td style="text-align: center;"><!-- Ã…rtal frÃ¥n API -->2019</td>
                             <td style="text-align: center;"><!-- Speltid frÃ¥n API -->140 min</td>
                             <td style="text-align: center;"><!-- Sett eller inte frÃ¥n inloggad anvÃ¤ndare -->Yes</td>
-                            <td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->TMB_DOWN</td>
+                            <?php
+							if($rating == "0")
+							{
+							?>
+							<td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->Neutral</td>
+							<?php
+							}
+							elseif($rating == "1")
+							{
+							?>
+							<td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->TMB_UP</td>
+							<?php
+							}
+							elseif($rating == "2")
+							{
+							?>
+							<td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->TMB_DOWN</td>
+							<?php
+							}
+							?>
                         </tr>
                     </tbody>
             </table>
