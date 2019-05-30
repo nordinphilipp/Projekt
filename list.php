@@ -19,7 +19,7 @@
 			$dbname = "dbtrain_1095";
 			$connect = new mysqli($host, $uname, $pass, $dbname);
 			$listid = $_GET['listID'];
-			$query = "SELECT * from movie_list where listID = '$listid'";
+			$query = "SELECT * from movie_list where listID = '$listid' ORDER BY orderinlist ASC";
 			$check = $connect->query($query);
 			$listtitle = "SELECT * from lists where listID = '$listid'";
 			$titleresult = $connect ->query($listtitle);
@@ -30,6 +30,8 @@
 			$userrr = $connect ->query($userr);
 			$resuu = $userrr -> fetch_array();
 			$userfinal = $resuu['username'];
+			$profilelink = "profile.php?userID=$user";
+			$editlink = "listeditor.php?listID=$listid";
 			
 						
 			
@@ -40,7 +42,14 @@
                 </div>
                 <div class="col-8 red lighten-2">
                     <div class="row">
-                        <div class="w-100 p-3 text-white text-center"><?php echo $title?> - a list by <?php echo $userfinal ?></div>
+                        <div class="w-100 p-3 text-white text-center"><?php echo $title?> - a list by <a href="<?php echo $profilelink ?>"><?php echo $userfinal ?></a></div>
+                    </div>
+					<!-- Verktygsrad för ägare/admin -->
+					<div class="row">
+                        <div class="toolbar">
+							<div class="toolbarbutton"><a href="<?php echo $editlink ?>">Edit</a></div>
+							<div class="toolbarbutton"><a href="">Delete</a></div>
+						</div>
                     </div>
                     <table class="table table-striped table-dark table-bordered">
                 <thead>
@@ -55,37 +64,38 @@
                     </tr>
                 </thead>
                     <tbody>
-                        <!-- Allt inom detta element ska genereras en gÃ¥ng per film i listan -->
                         <?php
 						
 						while($row = $check->fetch_array())//gå igenom alla resultat
 						{
 							$id = $row['movieID'];
 							$order = $row['orderinlist'];
-							$query2 = "SELECT rating FROM movies1 WHERE movieID = '$id'";
-							$check = $connect->query($query2);
-						while($row = $check->fetch_assoc())
-						{	
-							$rating = $row['rating'];
-						}
+							$query2 = "SELECT rating FROM movies2 WHERE movieID = '$id'";
+							$check2 = $connect->query($query2);
+							if ($check2 ->num_rows ===0){
+							$rating = "0";
+							}
+							else
+							{
+							while($rowtwo = $check2->fetch_assoc())
+							{	
+							$rating = $rowtwo['rating'];
+							}
+							}
+						
+						
 							$content = file_get_contents("http://www.omdbapi.com/?i=$id&apikey=2c66b43f");
 							$arr = json_decode($content);
 							?>
-							<tr style="line-height: 70px;">
+							<tr style="line-height: 75px;">
                             <th style="text-align: center;" scope="row"><?php echo $order ?></th>
-                            <td><!-- Poster frÃ¥n API/Placeholder--><img src="<?php echo $arr-> Poster ?>" style="max-height:9.8vh"/></td>
-                            <td><?php echo $arr-> Title ?></td>
+                            <td><!-- Poster frÃ¥n API/Placeholder--><img src="<?php echo $arr-> Poster ?>" style="max-height:70px"/></td>
+                            <td><a href="moviepage.php?id=<?php echo $arr -> imdbID?>"><?php echo $arr-> Title ?></a></td>
                             <td style="text-align: center;"><?php echo $arr-> Year ?></td>
                             <td style="text-align: center;"><?php echo $arr-> Runtime ?></td>
                             <!--<td style="text-align: center;">Yes</td>-->
                              <?php
-							if($rating == "0")
-							{
-							?>
-							<td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->Neutral</td>
-							<?php
-							}
-							elseif($rating == "1")
+							if($rating == "1")
 							{
 							?>
 							<td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->TMB_UP</td>
@@ -95,6 +105,12 @@
 							{
 							?>
 							<td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->TMB_DOWN</td>
+							<?php
+							}
+							elseif($rating =="0")
+							{
+							?>
+							<td style="text-align: center;"><!-- Listskaparens omdÃ¶me -->-</td>
 							<?php
 							}
 							?>
