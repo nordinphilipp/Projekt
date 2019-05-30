@@ -100,17 +100,24 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 				<div class="col-4"><h1 class="titles">Lists</h1>
 				</div>
 			</div>
-
+			
 			<div class="row" style="padding:10px;">
 				<div class="col-4">
 					<div class="card-deck">
+					<?php
+						$result = mysqli_query($connect, "SELECT * FROM lists where name like '$hold'");
+						while($row = $result->fetch_array())
+						{?>
 						<div class="card" style="min-width:200px;max-width:200px;float:left;">
 							<div class="card-body">
-								<p class="card-text"><a href="#?id=<?php //linkid ?>" class="stretched-link" style="color:black;">Listname</a></p>	
+								<p class="card-text"><a href="#?id=<?php //linkid ?>" class="stretched-link" style="color:black;"><?php echo $name['name']?></a></p>	
 								<p class="card-text">Made By User</p>
 								<p class="card-text">Main Genre</p>
 							</div>
 						</div>	
+						<?php
+						}
+						?>
 					</div>
 				</div>
 			</div>
