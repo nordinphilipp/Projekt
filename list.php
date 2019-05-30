@@ -52,10 +52,18 @@
 						
 						while($row = $check->fetch_array())//gå igenom alla resultat
 						{
-							//$id = $row['movieID'];
-							$content = file_get_contents("https://www.omdbapi.com/?i=tt6966692&apikey=2c66b43f");
+							$movieID = $row['movieID'];
+							$content = file_get_contents("http://www.omdbapi.com/?i=tt6966692&apikey=2c66b43f");
 							$arr = json_decode($content);
 						}
+						$query2 = "SELECT * FROM movies WHERE movieID = '$movieID'";
+						$check = $connect->query($query2);
+						while($row = $check->fetch_assoc())
+						{	
+							$rating = $row['rating'];
+						}
+						
+                        //foreach()
 	?>
 	
 		<div class="row" style="width:100%;min-height:100px;padding:20px;">
@@ -75,22 +83,6 @@
 					</div>
 				</div>
 			</div>	
-			<?php
-						//Hämta information här någonstans om namnet på filmerna, samt annat som behövs från IMDB API?
-						
-						
-						//Rating för filmerna nedan.
-						/*$query2 = "SELECT tumbsUP FROM movies WHERE movieID = '$movieID'";
-						$check = $connect->query($query2);
-						while($row = $check->fetch_assoc())
-						{
-							$ratingUP = $row['tumbsUP'];
-						}
-						
-						$tumbsUP = $result['tumbsUP']; */
-                        //foreach()
-
-                        ?>
                         <tr style="line-height: 70px;">
                             <th style="text-align: center;" scope="row"><!--Plats i listan-->1</th>
                             <td><!-- Poster frÃ¥n API/Placeholder--><img class="miniature" src="https://d1csarkz8obe9u.cloudfront.net/posterpreviews/movie-night-flyer-template-7d7861e3d349b92b655900299d774a11_screen.jpg"></td>
