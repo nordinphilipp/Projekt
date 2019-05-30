@@ -13,7 +13,7 @@ if(isset($_SESSION['userID']))
 }
 else
 {
-	$uesrid = -1;
+	$userid = -1;
 }
 
 
@@ -162,19 +162,25 @@ if(isset($_GET['addcomment']))
 		$check = $connect->query($query);
 		while($row = $check->fetch_array())
 		{
+		$userid = $row['userID'];
+		$query2 = "select * from users where userID = '$userid'";//välj inlägg med nyast först
+		$res = $connect->query($query2);
+		while($res = $check->fetch_array())
+		{
 		?>	
 		<div class="row">
 			<div class="col-12">
 				<div class="media border p-3">
-					<img src="<?php echo $arr->Poster?>" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+					<img src="<?php echo $res['img']?>" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
 					<div class="media-body">
-						<h4><?php echo $row['username']?><small><i><?php echo $row['timestamp']?></i></small></h4>
+						<h4><?php echo $res['username']?><small><i><?php echo $row['timestamp']?></i></small></h4>
 						<p><?php echo $row['comment']?></p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<?php
+		}
 		}
 		?>
 
