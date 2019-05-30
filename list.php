@@ -55,7 +55,7 @@
 						while($row = $check->fetch_array())//gå igenom alla resultat
 						{
 							//$id = $row['movieID'];
-							$content = file_get_contents("https://www.omdbapi.com/?i=88247&apikey=2c66b43f");
+							$content = file_get_contents("https://www.omdbapi.com/?i=tt6966692&apikey=2c66b43f");
 							$arr = json_decode($content);
 						}
 	?>
