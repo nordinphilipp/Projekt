@@ -1,8 +1,18 @@
 <?php
 
+function conn(){
+$uname = "dbtrain_1095";
+$pass = "ldchnm";
+$host = "dbtrain.im.uu.se";
+$dbname = "dbtrain_1095";
+return new mysqli($host, $uname, $pass, $dbname);
+
+
+}
+
 function returnorder($x){
-	$connect = new mysqli('localhost', 'root','','testprojekt');
-	$result = mysqli_query($connect, "SELECT * FROM listrelation where listID = '$x' ORDER BY orderinlist DESC LIMIT 1");
+	$connect = conn();
+	$result = mysqli_query($connect, "SELECT * FROM movie_list where listID = '$x' ORDER BY orderinlist DESC LIMIT 1");
 	$row = mysqli_fetch_array($result);
 	$length=$row['orderinlist'];
 	if(!is_numeric($length))
@@ -13,11 +23,9 @@ function returnorder($x){
 }
 
 function fetchlist($x){
-	$connect = new mysqli('localhost', 'root','','testprojekt');
-	$query = "select * from listrelation where listID = '$x' order by orderinlist asc";//välj inlägg med nyast först
+	$connect = conn();
+	$query = "select * from movie_list where listID = '$x' order by orderinlist asc";//välj inlägg med nyast först
 	$check = $connect->query($query);
 	return $check;
 }
-
-
 ?>
