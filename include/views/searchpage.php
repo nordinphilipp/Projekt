@@ -12,7 +12,11 @@
   </head>-->
   <body>
     <?php
-
+$uname = "dbtrain_1095";
+$pass = "ldchnm";
+$host = "dbtrain.im.uu.se";
+$dbname = "dbtrain_1095";
+$connect = new mysqli($host, $uname, $pass, $dbname);
 
 			?>
 	
@@ -24,7 +28,7 @@
 					<?php
 					$hold = $_GET['title'];
 					$title = str_replace(" ", "+",$hold);
-					$content = file_get_contents("https://www.omdbapi.com/?s=$title&type=movie&apikey=2c66b43f");
+					$content = file_get_contents("http://www.omdbapi.com/?s=$title&type=movie&apikey=2c66b43f");
 					$arr = json_decode($content);
 					if($arr -> Response == "False" )
 					{
@@ -73,18 +77,23 @@
 			<div class="row" style="padding:10px;">
 				<div class="col-12">
 				<?php
-				//connect to database
-				//get all users where the search is included in their username
-				//print them out in cards in a loop
+				
+				$result = mysqli_query($connect, "SELECT * FROM users where username like '$hold'");
+				while($row = $result->fetch_array())
+				{
 				?>
 					<div class="card-deck">
 						<div class="card" style="min-width:200px;max-width:200px;float:left;">
 							<img class="card-img-top" src="" alt="Card Image"/>
 							<div class="card-body">
-								<p class="card-text"><a href="#?id=<?php //userid ?>" class="stretched-link" style="color:black;">Username</a></p>	
+								<p class="card-text"><a href="#?id=<?phpecho $name['username'] ?>" class="stretched-link" style="color:black;"><?php echo $name['username'] ?></a></p>	
 							</div>
 						</div>	
 					</div>
+					
+				<?php
+				}
+				?>
 				</div>
 			</div>
 			<div class="row">
