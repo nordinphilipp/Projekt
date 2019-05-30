@@ -49,8 +49,6 @@
 						$listid = 6;
 						$query = "SELECT * from movie_list where listID = '$listid'";
 						$check = $connect->query($query);
-						/*$result = $check -> fetch_array();		//Behövs det en loop för att plocka ut alla movieID's här?
-						$movieID = $result['movieID'];	*/		//Kan jag plocka ut all information om filmerna med IMDB API:t eller måste jag ta jämföra movieID med movieID i table movies 
 						
 						while($row = $check->fetch_array())//gå igenom alla resultat
 						{
@@ -84,7 +82,11 @@
 						//Rating för filmerna nedan.
 						/*$query2 = "SELECT tumbsUP FROM movies WHERE movieID = '$movieID'";
 						$check = $connect->query($query2);
-						$result = $check -> fetch_array();
+						while($row = $check->fetch_assoc())
+						{
+							$ratingUP = $row['tumbsUP'];
+						}
+						
 						$tumbsUP = $result['tumbsUP']; */
                         //foreach()
 
