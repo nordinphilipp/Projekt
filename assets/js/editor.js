@@ -5,10 +5,18 @@ var clickedon = ["",""];
 var moviearr = ["",""];
 var idarr = ["",""];
 var loading = 0;
-  
+var prevent = 0;
 function thumbs(x){
-	
+
+
 	var element = document.getElementById('thumbs' + x).id;
+	 if(this === element.target) {
+	 prevent = 0;
+    }
+	else{
+		prevent = 1;
+	 }
+	
 	var list = document.getElementById('listid').value;
 	var movie = document.getElementById('movie' + x).value;
 
@@ -38,12 +46,15 @@ function thumbs(x){
 		});
      
 	}
-  return false;
-}
 
+  
+}
+window.onerror = function(msg, url, linenumber) {
+    alert('Error message: '+msg+'\nURL: '+url+'\nLine Number: '+linenumber);
+    return true;
+}
 function swapitems(x){
-	
-	if(loading == 0)
+	if(loading == 0 && prevent == 0)
 	{
 	loading = 1;
 	var list = document.getElementById('listid').value;
@@ -56,7 +67,7 @@ function swapitems(x){
 	{
 		moviearr[0] = movie;
 		clickedon[0] = document.getElementById(x);
-		clickedon[0].style.backgroundColor = "#a6a6a6";
+		clickedon[0].style.opacity = 0.5;
 		idarr[0] = x;
 	}
 	else if(swapcounter == 2)
@@ -64,47 +75,38 @@ function swapitems(x){
 		
 		moviearr[1] = movie;
 		clickedon[1] = document.getElementById(x);
-		clickedon[1].style.backgroundColor = "#a6a6a6";
+		clickedon[1].style.opacity = 0.5;
 		idarr[1] = x;
+
 		$.ajax
 		(
 		{
 		type: 'GET',
 		url: 'include/methods/swap.php?list='+list+'&movie1='+ moviearr[0] +'&movie2=' + moviearr[1],
 		success: function (data) 
-		{
+		{	
 			
+			clickedon[0].style.opacity = 1;
+			clickedon[1].style.opacity = 1;
 			
-			var hold = "";
-			hold = document.getElementById('thumbs'+idarr[0]).src;
-			document.getElementById('thumbs'+idarr[0]).src = document.getElementById('thumbs'+idarr[1]).src;
-			document.getElementById('thumbs'+idarr[1]).src = hold;
-			
-			
-			hold = document.getElementById('thumbs'+idarr[0]).id;
-			document.getElementById('thumbs'+idarr[0]).id = document.getElementById('thumbs'+idarr[1]).id;
-			document.getElementById('thumbs'+idarr[1]).id = hold;
-			
-		
-			
-			clickedon[0].style.backgroundColor = "#d9d9d9";
-			clickedon[1].style.backgroundColor = "#d9d9d9";
+			var hold = document.getElementById('order' + idarr[0]).innerHTML;
+			document.getElementById('order' + idarr[0]).innerHTML = document.getElementById('order' + idarr[1]).innerHTML;
+			document.getElementById('order' + idarr[1]).innerHTML = hold;
 			
 			var clonedElement1 = clickedon[0].cloneNode(true);
 			var clonedElement2 = clickedon[1].cloneNode(true);
-			
+
 			clickedon[1].parentNode.replaceChild(clonedElement1, clickedon[1]);
 			clickedon[0].parentNode.replaceChild(clonedElement2, clickedon[0]);
-			
+
 		}
 		}
 		);
-		
-		
 		swapcounter = 0;
 	}
 	
-	loading = 0;
 	
+	loading = 0;
 	}
+	prevent = 0;
 }
