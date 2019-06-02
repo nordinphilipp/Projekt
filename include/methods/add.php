@@ -6,9 +6,9 @@ $host = "dbtrain.im.uu.se";
 $dbname = "dbtrain_1095";
 $connect = new mysqli($host, $uname, $pass, $dbname);
 
-$rating = "N/A";
+$rating = "3";
 $listid = $_GET['list'];
-$userid = 1;
+$userid = $_SESSION['userID'];
 $movieid = $_GET['movie'];
 
 $result = mysqli_query($connect, "SELECT orderinlist FROM movie_list where listID = '$v' ORDER BY orderinlist DESC LIMIT 1");
