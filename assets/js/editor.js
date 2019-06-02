@@ -110,3 +110,31 @@ function swapitems(x){
 	}
 	prevent = 0;
 }
+
+function add(x){
+	
+		var movie = document.getElementById(x).id;
+		var list = document.getElementById('listsearch').id;
+		$.ajax({
+		type: 'GET',
+		url: 'include/methods/add.php?list='+list+'&movie=' + movie,
+		success: function (data) {
+			window.location.replace('listeditor.php?list=' + list);
+		}
+		});
+	
+}
+function cahngetitle(){
+	
+	var newtitle = document.forms["titleform"]["newtitle"].value;
+	var list = document.getElementById('listid').id;
+	
+	$.ajax({
+		type: 'GET',
+		url: 'include/methods/changetitle.php?list='+list+'&name=' + newtitle,
+		success: function (data) {
+			document.getElementById('listtitle').innerHTML = newtitle;
+		}
+		});
+}
+
