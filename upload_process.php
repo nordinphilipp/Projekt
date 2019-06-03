@@ -13,17 +13,18 @@ if(isset($_POST['submit'])){
     if($check !== false){;
         $uploadOK = 1;
     } else {
-        echo "Detta är inte en bild";
+        $errormsg = "Detta är inte en bild";
         $uploadOK = 0;
     }
 
     if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg" && $imageFileType != "gif") {
-        echo "enbart .jpg, .jpeg, .png and .gif är tillåtet";
+        $errormsg = $errormsg . "\nEnbart .jpg, .jpeg, .png and .gif är tillåtet";
         $uploadOK=0;
     }
 
     if($uploadOK == 0){
-        echo "Filen kunde inte laddas upp";
+        $errormsg = $errormsg . "\nFilen kunde inte laddas upp";
+        echo "<script>alert('$errormsg')</script>"
     } else {
         if(move_uploaded_file($_FILES['uploadFile']['tmp_name'], $file)) {
             echo "Upload complete"
@@ -32,7 +33,7 @@ if(isset($_POST['submit'])){
             changeUserImg($filedir);
             header('Location:profile.php');
         } else {
-            echo "någonting blev fel";
+            $errormsg = $errormsg . "\nNågonting blev fel";
         }
     }
 }
