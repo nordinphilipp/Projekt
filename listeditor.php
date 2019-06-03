@@ -2,8 +2,6 @@
 include('include/bootstrap.php');
 include('include/methods/functions.php');
 include('include/process/connect_process.php');
-//skulle föreslå att allt som har med databas att göra görs via 'include/methods/db.php' 
-//och att anslutningarna till db görs därifrån med 'include/process/connect-process.php'
 
 
 $userid= $_SESSION['userID'];
@@ -85,7 +83,7 @@ $user = getusername($userid);
 						$id = $row['movieID'];					
 						$order=orderinlist($id);
 	
-						$rating = setrating($id);
+						$rating = setrating($id,$userid);
 	
 						$co = $co + 1;
 						$thumbs = "thumbs" . $co;
