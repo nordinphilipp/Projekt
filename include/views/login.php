@@ -1,4 +1,4 @@
-	<html lang="en">
+		<html lang="en">
         <body>
 			<div class="container-fluid red darken-4" style="height: 90vh">
 				<div class="center-box grey darken-4  white-text">
@@ -21,7 +21,7 @@
                             <br>
                             <div class="form-group row">
                                 <div class="col-sm-8">
-                                    Forgot password?<br>Register
+                                    Forgot password?<br><a href="register.php">Register</a>
                                 </div>
                                 <div class="col-sm-4">
                                     <button type="submit" class="btn red lighten-1" name="send" value="Skicka"/>Submit</button>
