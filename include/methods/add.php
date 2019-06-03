@@ -1,15 +1,11 @@
 <?php
-$uname = "dbtrain_1095";
-$pass = "ldchnm";
-$host = "dbtrain.im.uu.se";
-$dbname = "dbtrain_1095";
-$connect = new mysqli($host, $uname, $pass, $dbname);
+include('include/process/connect_process.php');
 
 
 $listid = $_GET['list'];
 $movieid = $_GET['movie'];
 
-$result = mysqli_query($connect, "SELECT orderinlist FROM movie_list where listID = '$listid' ORDER BY orderinlist DESC LIMIT 1");
+$result = mysqli_query($connection, "SELECT orderinlist FROM movie_list where listID = '$listid' ORDER BY orderinlist DESC LIMIT 1");
 		$row = mysqli_fetch_array($result);
 		$length=$row['orderinlist'];
 		if(!is_numeric($length))
@@ -17,8 +13,9 @@ $result = mysqli_query($connect, "SELECT orderinlist FROM movie_list where listI
 			$length = 0;
 		}
 		$order = $length + 1;
-		$state  = $connect->prepare("INSERT INTO movie_list(listID,movieID,orderinlist) VALUES(?,?,?)");
+		$state  = $connection->prepare("INSERT INTO movie_list(listID,movieID,orderinlist) VALUES(?,?,?)");
 		$state->bind_param('sss',$listid,$movieid,$order);
 		$state->execute();
+
 
 ?>
