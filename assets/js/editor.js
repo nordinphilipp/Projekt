@@ -155,7 +155,8 @@ function changetitle(){
 	
 	var newtitle = document.forms["titleform"]["newtitle"].value;
 	
-	var list = document.getElementById('listid').value;
+	var list = document.forms["titleform"]["listid"].value;
+
 
 	$.ajax({
 		type: 'GET',
