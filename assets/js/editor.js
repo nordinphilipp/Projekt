@@ -6,6 +6,48 @@ var moviearr = ["",""];
 var idarr = ["",""];
 var loading = 0;
 var prevent = 0;
+
+
+
+function removemovie(x){
+
+	var element = document.getElementById('remove' + x).id;
+	var list = document.getElementById('listid').value;
+	var movie = document.getElementById('movie' + x).value;
+	if(this === element.target) {
+	 prevent = 0;
+    }
+	else{
+		prevent = 1;
+	 }
+	 
+	 $.ajax({
+		type: 'GET',
+		url: 'include/methods/remove.php?list='+list+'&movie=' + movie,
+		success: function (data) {
+			$(x).remove();
+		}
+		});
+	 
+	 
+}
+
+function add(x){
+	var movie = document.getElementById(x).id;
+	var list = document.getElementById('listid').value;
+	
+
+		$.ajax({
+		type: 'GET',
+		url: 'include/methods/add.php?list='+list+'&movie=' + movie,
+		success: function (data) {
+			window.location.href = "listeditor.php?listid="+list;
+		}
+		});
+
+
+}
+
 function thumbs(x){
 
 
@@ -25,9 +67,8 @@ function thumbs(x){
     {
 		$.ajax({
 		type: 'GET',
-		url: 'include/methods/rating.php?list='+list+'&rating=down&movie=' + movie,
+		url: 'include/methods/rating.php?list='+list+'&rating=2&movie=' + movie,
 	success: function (data) {
-
 		document.getElementById(element).src = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fsignaturesatori.com%2Fwp-content%2Fuploads%2F2017%2F03%2Fthumbs-down.png&f=1"; 
  
   }
@@ -39,7 +80,7 @@ function thumbs(x){
     {
 		$.ajax({
 		type: 'GET',
-		url: 'include/methods/rating.php?list='+list+'&rating=up&movie=' + movie,
+		url: 'include/methods/rating.php?list='+list+'&rating=1&movie=' + movie,
 		success: function (data) {
 		document.getElementById(element).src = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartwork.com%2Fwp-content%2Fuploads%2F2017%2F02%2Fclipart-for-thumbs-up.png&f=1"; 
 									}
@@ -110,25 +151,12 @@ function swapitems(x){
 	}
 	prevent = 0;
 }
-
-function add(x){
-	
-		var movie = document.getElementById(x).id;
-		var list = document.getElementById('listsearch').id;
-		$.ajax({
-		type: 'GET',
-		url: 'include/methods/add.php?list='+list+'&movie=' + movie,
-		success: function (data) {
-			window.location.replace('listeditor.php?list=' + list);
-		}
-		});
-	
-}
-function cahngetitle(){
+function changetitle(){
 	
 	var newtitle = document.forms["titleform"]["newtitle"].value;
-	var list = document.getElementById('listid').id;
 	
+	var list = document.getElementById('listid').value;
+
 	$.ajax({
 		type: 'GET',
 		url: 'include/methods/changetitle.php?list='+list+'&name=' + newtitle,
@@ -137,4 +165,3 @@ function cahngetitle(){
 		}
 		});
 }
-
