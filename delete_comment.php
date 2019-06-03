@@ -20,13 +20,13 @@ Redirect efter användare klickat på knappen för att radera kommentar till del
 		{
 			if($_SESSION['userID'] == 27)
 				{
-					$sql = "DELETE FROM comments WHERE movieID='$movieID'";
+					$sql = "DELETE FROM comments WHERE commentID='$commentID'";
 					mysqli_query($connect, $sql);
 					header("Location: moviepage.php?id=$movieID");
 				}
 			else if($_SESSION['userID'] == $userID)
 				{
-					$sql = "DELETE FROM comments WHERE movieID='$movieID'";
+					$sql = "DELETE FROM comments WHERE commentID='$commentID'";
 					mysqli_query($connect, $sql);
 					header("Location: list.php?id=$movieID");
 				}
