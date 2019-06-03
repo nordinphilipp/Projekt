@@ -1,13 +1,14 @@
 <?php
 include('include/bootstrap.php');
-include('include/methods/editorfunctions.php');
+include('include/methods/functions.php');
+include('include/process/connect_process.php');
 //skulle föreslå att allt som har med databas att göra görs via 'include/methods/db.php' 
 //och att anslutningarna till db görs därifrån med 'include/process/connect-process.php'
-$connect = conn();
+
 
 $userid= 24;
 
-$listid = $_GET['listid'];
+$listid = $_GET['listID'];
 
 $title = gettitle($listid);
 
@@ -190,6 +191,7 @@ $user = getusername($userid);
 					</div>
 				<?php
 				}
+				mysqli_close($connect);
 				?>
 	</div>
 </div>
