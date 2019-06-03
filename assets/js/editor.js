@@ -41,7 +41,7 @@ function add(x){
 		type: 'GET',
 		url: 'include/methods/add.php?list='+list+'&movie=' + movie,
 		success: function (data) {
-			window.location.href = "listeditor.php?listid="+list;
+			window.location.href = "listeditor.php?listID="+list;
 		}
 		});
 
@@ -63,13 +63,13 @@ function thumbs(x){
 	var movie = document.getElementById('movie' + x).value;
 
 	
-	if (document.getElementById(element).src == "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartwork.com%2Fwp-content%2Fuploads%2F2017%2F02%2Fclipart-for-thumbs-up.png&f=1") 
+	if (document.getElementById(element).src == "assets/img/ratings/thumbs_up.png") 
     {
 		$.ajax({
 		type: 'GET',
 		url: 'include/methods/rating.php?list='+list+'&rating=2&movie=' + movie,
 	success: function (data) {
-		document.getElementById(element).src = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fsignaturesatori.com%2Fwp-content%2Fuploads%2F2017%2F03%2Fthumbs-down.png&f=1"; 
+		document.getElementById(element).src = "assets/img/ratings/thumbs_down.png"; 
  
   }
 });
@@ -82,7 +82,7 @@ function thumbs(x){
 		type: 'GET',
 		url: 'include/methods/rating.php?list='+list+'&rating=1&movie=' + movie,
 		success: function (data) {
-		document.getElementById(element).src = "https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartwork.com%2Fwp-content%2Fuploads%2F2017%2F02%2Fclipart-for-thumbs-up.png&f=1"; 
+		document.getElementById(element).src = "assets/img/ratings/thumbs_up.png"; 
 									}
 		});
      
@@ -157,10 +157,9 @@ function changetitle(){
 	
 	var list = document.forms["titleform"]["listid"].value;
 
-
 	$.ajax({
 		type: 'GET',
-		url: 'include/methods/changetitle.php?list='+list+'&name=' + newtitle,
+		url: 'include/methods/changetitle.php?list='+list+'&name=' +newtitle,
 		success: function (data) {
 			document.getElementById('listtitle').innerHTML = newtitle;
 		}
