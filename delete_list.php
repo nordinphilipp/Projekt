@@ -1,13 +1,9 @@
 <?php
     include('include/bootstrap.php');
-	$uname = "dbtrain_1095";
-	$pass = "ldchnm";
-	$host = "dbtrain.im.uu.se";
-	$dbname = "dbtrain_1095";
-	$connect = new mysqli($host, $uname, $pass, $dbname);
+	include('include/process/connect_process.php');
     $listID = $_GET['listid'];
 	$list = "SELECT * from lists where listID='$listID'";
-	$listresult = $connect ->query($list);
+	$listresult = $connection ->query($list);
 	$res = $listresult -> fetch_array();
 	$userID = $res['userID'];
 	
@@ -17,18 +13,18 @@
 			if($_SESSION['userID'] == 27)
 				{
 					$sql = "DELETE FROM lists WHERE listID='$listID'";
-					mysqli_query($connect, $sql);
+					mysqli_query($connection, $sql);
 					header("Location: list.php?listID=$listid");
 				}
 			else if($_SESSION['userID'] == $userID)
 				{
 					$sql = "DELETE FROM lists WHERE listID='$listID'";
-					mysqli_query($connect, $sql);
+					mysqli_query($connection, $sql);
 					header("Location: list.php?listID=$listid");
 				}
 			else
 			{
-				echo "Du har ej behörighet för att ändra/ta bort denna lista.";
+				echo "Du har ej behörighet för att ändra/ta bort denna lista.";		// Byt design
 			}
 		}
 		else
