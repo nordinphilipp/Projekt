@@ -122,9 +122,9 @@ $user = $res['username'];
 					<tr style="line-height: 70px;cursor:pointer;" id="<?php echo $co ?>" onclick="swapitems(this.id)">
 					<input type="hidden" id="movie<?php echo $co?>" value="<?php echo $arr->imdbID ?>">
 					<input type="hidden" id="listid" value="<?php echo $listid?>" name="list">
-					<td  id="order<?php echo $co?>" style="text-align: center;" ><?php echo $order ?></td>
+					<td  id="order<?php echo $co?>" style="text-align: center;" ><?php echo $co ?></td>
 					<td><img src="<?php echo $arr-> Poster ?>" style="max-height:9.8vh"/></td>
-					<td><?php echo $arr-> Title ?></td>
+					<td><?php echo $arr-> Title ?> <?php echo $arr->imdbID ?></td>
 					<td style="text-align: center;"><?php echo $arr-> Year ?></td>
 					<td style="text-align: center;"><?php echo $arr-> Runtime ?></td>
 					
