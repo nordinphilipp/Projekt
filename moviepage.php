@@ -36,8 +36,8 @@ if(isset($_GET['addtolist']))
 if(isset($_GET['addcomment']))
 {
 	$content = $_GET['comment'];
-	$time = date("Y-m-d h:i");
-	$state  = $connect->prepare("INSERT INTO comment(movieID,content,user) VALUES(?,?,?)");
+	//$time = date("Y-m-d h:i");
+	$state  = $connect->prepare("INSERT INTO comments(movieID,comment,userID) VALUES(?,?,?)");
 	$state->bind_param('sss',$movie,$content,$userid);
 	$state->execute();
 	header('location:moviepage.php?id='.$movie);
