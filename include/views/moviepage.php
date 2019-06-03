@@ -1,9 +1,7 @@
 <?php
 $movie = $_GET['id'];
-
 include('include/process/connect_process.php');
 include('include/methods/functions.php');
-
 if(isset($_SESSION['userID']))
 {
 	$userid = $_SESSION['userID'];
@@ -23,7 +21,6 @@ if(isset($_GET['addtolist']))
 	
 	
 	foreach($lists as $v){
-
 		$length = returnorder($v);
 		$order = $length + 1;
 		addtolist($v,$movie,$order);
@@ -150,18 +147,20 @@ if(isset($_GET['addcomment']))
 		<?php
 		$check = getcomments($movie);
 		while($row = $check->fetch_array())
-		{
+		{ 
+		$commentID = $row['commentID'];
+        $commentlink = "delete_comment.php?commentID=$commentID";
 		$username = getusername( $row['userID']);
-
 		?>	
 		<div class="row">
 			<div class="col-12">
 				<div class="media border p-3">
 					<img src="<?php echo $resu['img']?>" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
 					<div class="media-body">
-						<h4><?php echo $username?><?php echo " "?><small><i><?php echo $row['timestamp']?></i></small></h4>
+						<h4><?php echo $username; echo " "?><small><i><?php echo $row['timestamp']?></i></small></h4>
 						<p><?php echo $row['comment']?></p>
 					</div>
+					 <button type="submit" class="btn btn-primary" name="removecomment" onclick="window.location.href='delete_comment.php?commentID=<?php echo $commentID?>'">Radera</button>
 				</div>
 			</div>
 		</div>
