@@ -28,7 +28,7 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 					<?php
 					$hold = $_GET['title'];
 					$title = str_replace(" ", "+",$hold);
-					$content = file_get_contents("http://www.omdbapi.com/?s=$title&type=movie&apikey=2c66b43f");
+					$content = file_get_contents("http://www.omdbapi.com/?s=$title&apikey=2c66b43f");
 					$arr = json_decode($content);
 					if($arr -> Response == "False" )
 					{
@@ -65,13 +65,12 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 					</div>	
 					<?php
 					}
+					}
 					?>
 					</div>
 				</div>
 			</div>
 						
-			<!--skulle föreslå att hämtningarna från databas görs via 'include/methods/db.php' 
-			och att anslutningarna till db görs därifrån med 'include/process/connect-process.php'-->
 						
 			<div class="row">
 				<div class="col-4"><h1 class="titles">Users</h1></div>
@@ -86,9 +85,9 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 				?>
 					<div class="card-deck">
 						<div class="card" style="min-width:200px;max-width:200px;float:left;">
-							<img class="card-img-top" src="" alt="Card Image"/>
+							<img class="card-img-top" src="<?phpecho $row['img']?>" alt="Card Image"/>
 							<div class="card-body">
-								<p class="card-text"><a href="#?id=<?phpecho $name['username'] ?>" class="stretched-link" style="color:black;"><?php echo $name['username'] ?></a></p>	
+								<p class="card-text"><a href="#?id=<?phpecho $row['username'] ?>" class="stretched-link" style="color:black;"><?php echo $row['username'] ?></a></p>	
 							</div>
 						</div>	
 					</div>
@@ -112,9 +111,8 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 						{?>
 						<div class="card" style="min-width:200px;max-width:200px;float:left;">
 							<div class="card-body">
-								<p class="card-text"><a href="#?id=<?php //linkid ?>" class="stretched-link" style="color:black;"><?php echo $name['name']?></a></p>	
-								<p class="card-text">Made By User</p>
-								<p class="card-text">Main Genre</p>
+								<p class="card-text"><a href="#" class="stretched-link" style="color:black;"><?php echo $row['name']?></a></p>	
+								<p class="card-text">Made By <?php echo $row['userID']?></p>
 							</div>
 						</div>	
 						<?php
@@ -123,8 +121,5 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 					</div>
 				</div>
 			</div>
-	<?php					
-	}
-	?>
   </body>
 </html>
