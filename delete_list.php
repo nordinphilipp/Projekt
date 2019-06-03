@@ -11,6 +11,7 @@
 	$res = $listresult -> fetch_array();
 	$userID = $res['userID'];
 	
+	/* Fixa felmeddelande ifall användaren ej har behörighet att ändra lista, istället för echo */
 		if(!empty($_SESSION['logged_in']))
 		{
 			if($_SESSION['userID'] == 27)
