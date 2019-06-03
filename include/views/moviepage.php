@@ -53,8 +53,8 @@ if(isset($_GET['addtolist']))
 if(isset($_GET['addcomment']))
 {
 	$content = $_GET['comment'];
-	$time = date("Y-m-d h:i");
-	$state  = $connect->prepare("INSERT INTO comments(movieID,content,user) VALUES(?,?,?)");
+	//$time = date("Y-m-d h:i");
+	$state  = $connect->prepare("INSERT INTO comments(movieID,comment,userID) VALUES(?,?,?)");
 	$state->bind_param('sss',$movie,$content,$userid);
 	$state->execute();
 	header('location:moviepage.php?id='.$movie);
@@ -152,11 +152,17 @@ if(isset($_GET['addcomment']))
 			</div>
 			<div class="row">	
 				<div class="col-12">
+				<?php if(!empty($_SESSION['userID']))
+				{
+				?>
 					<form action="" method="get">
 						<input type="hidden" value="<?php echo $movie?>" name="id">
 						<textarea class="form-control"  name="comment" placeholder="Comment..."></textarea>
 						<button type="submit" class="btn btn-primary" name="addcomment">Submit</button>
 					</form>
+					<?php
+					}
+					?>
 				</div>
 			</div>
 		<?php 
@@ -168,15 +174,15 @@ if(isset($_GET['addcomment']))
 		$userid = $row['userID'];
 		$query2 = "select * from users where userID = '$userid'";//välj inlägg med nyast först
 		$res = $connect->query($query2);
-		while($res = $check->fetch_array())
+		while($resu = $res->fetch_array())
 		{
 		?>	
 		<div class="row">
 			<div class="col-12">
 				<div class="media border p-3">
-					<img src="<?php echo $res['img']?>" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
+					<img src="<?php echo $resu['img']?>" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
 					<div class="media-body">
-						<h4><?php echo $res['username']?><small><i><?php echo $row['timestamp']?></i></small></h4>
+						<h4><?php echo $resu['username']?><?php echo " "?><small><i><?php echo $row['timestamp']?></i></small></h4>
 						<p><?php echo $row['comment']?></p>
 					</div>
 				</div>
