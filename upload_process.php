@@ -24,10 +24,10 @@ if(isset($_POST['submit'])){
 
     if($uploadOK == 0){
         $errormsg = $errormsg . "\nFilen kunde inte laddas upp";
-        echo "<script>alert('$errormsg')</script>"
+        echo "<script>alert('$errormsg')</script>";
     } else {
         if(move_uploaded_file($_FILES['uploadFile']['tmp_name'], $file)) {
-            echo "Upload complete"
+            echo "Upload complete";
             $filedir = $dir . $_FILES['uploadFile']['name'];
 
             changeUserImg($filedir);
