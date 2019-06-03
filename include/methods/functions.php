@@ -1,6 +1,21 @@
 <?php
 include('include/process/connect_process.php');
 
+function addcomment($content,$userid,$movie){
+	$state  = $connection->prepare("INSERT INTO comments(movieID,comment,userID) VALUES(?,?,?)");
+	$state->bind_param('sss',$movie,$content,$userid);
+	$state->execute();
+
+}
+
+function addtolist($v,$movie,$order){
+
+$state  = $connection->prepare("INSERT INTO movie_list(listID,movieID,orderinlist) VALUES(?,?,?)");
+$state->bind_param('sss',$v,$movie,$order);
+$state->execute();
+}
+
+
 function gettitle($listid){
 
 $query = "select name from lists where listID = '$listid'";
