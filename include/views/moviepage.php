@@ -1,6 +1,4 @@
 <?php
-
-
 //skulle föreslå att allt som har med databas att göra görs via 'include/methods/db.php' 
 //och att anslutningarna till db görs därifrån med 'include/process/connect-process.php'
 $movie = $_GET['id'];
@@ -9,7 +7,6 @@ $pass = "ldchnm";
 $host = "dbtrain.im.uu.se";
 $dbname = "dbtrain_1095";
 $connect = new mysqli($host, $uname, $pass, $dbname);
-
 if(isset($_SESSION['userID']))
 {
 	$userid = $_SESSION['userID'];
@@ -18,9 +15,6 @@ else
 {
 	$userid = -1;
 }
-
-
-
 if(isset($_GET['addtolist']))
 {
 	$movie = $_GET['id'];
@@ -49,7 +43,6 @@ if(isset($_GET['addtolist']))
 	header('location:moviepage.php?id='.$movie);
 	
 }
-
 if(isset($_GET['addcomment']))
 {
 	$content = $_GET['comment'];
@@ -59,7 +52,6 @@ if(isset($_GET['addcomment']))
 	$state->execute();
 	header('location:moviepage.php?id='.$movie);
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -79,15 +71,17 @@ if(isset($_GET['addcomment']))
   <?php   
 	$content = file_get_contents("http://www.omdbapi.com/?i=$movie&apikey=2c66b43f");
 	$arr = json_decode($content);
-
   ?>
-	<div class="card" style="max-width:1000px;margin:auto;background-color:#d9d9d9;">
+	<div class="card text-white bg-dark mb-3" style="max-width:1000px;margin:auto;">
 		<div class="card-body">
 			<div class="row">
 				<div class="col"><h4 class="card-title"><?php echo $arr->Title ?></h4></div>
 				<div class="col"></div>
 				<div class="col">
-					<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal" style="float:right">
+				<?php if(!empty($_SESSION['userID']))
+				{
+				?>
+					<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal" style="float:right">
 						Add To A List
 					</button>
 		
@@ -123,7 +117,7 @@ if(isset($_GET['addcomment']))
 										<?php
 										}
 										?>
-										<button type="submit" name="addtolist" class="btn btn-primary">Add</button>
+										<button type="submit" name="addtolist" class="btn btn-danger">Add</button>
 										</form> 
 									</div>
 
@@ -135,6 +129,9 @@ if(isset($_GET['addcomment']))
 							</div>
 						</div>
 					</div>	
+					<?php
+					}
+					?>
 				</div>
 			</div>
 
@@ -145,10 +142,10 @@ if(isset($_GET['addcomment']))
 
 		
 			<div class="row">
-				<div class="col-3"><p class="card-text"><?php echo $arr->Country ?></p></div>
-				<div class="col-3"><h4 class="card-title">Rating</h4><br><p class="card-text"><?php echo $arr->imdbRating ?></p></div>
-				<div class="col-3"><h4 class="card-title">Actors</h4><br><p class="card-text"><?php echo $arr->Actors ?></p></div>
-				<div class="col-3"><h4 class="card-title">Director</h4><br><p class="card-text"><?php echo $arr->Director ?></p></div>
+				<div class="col-3"><p><?php echo $arr->Country ?></p></div>
+				<div class="col-3"><h4 class="card-title">Rating</h4><br><p><?php echo $arr->imdbRating ?></p></div>
+				<div class="col-3"><h4 class="card-title">Actors</h4><br><p><?php echo $arr->Actors ?></p></div>
+				<div class="col-3"><h4 class="card-title">Director</h4><br><p><?php echo $arr->Director ?></p></div>
 			</div>
 			<div class="row">	
 				<div class="col-12">
