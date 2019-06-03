@@ -1,14 +1,11 @@
 <?php
 
-$uname = "dbtrain_1095";
-$pass = "ldchnm";
-$host = "dbtrain.im.uu.se";
-$dbname = "dbtrain_1095";
-$connect = new mysqli($host, $uname, $pass, $dbname);
+include('include/process/connect_process.php');
+
 
 
 $rating = $_GET['rating'];
-$userid = 24;
+$userid = $_SESSION['userID'];
 $movieid = $_GET['movie'];
 
 
@@ -28,4 +25,5 @@ else
 	$state->bind_param('ssss',$userid,$movieid,$rating,$viewings);
 	$state->execute();
 }
+$connection->close();
 ?>
