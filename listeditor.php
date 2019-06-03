@@ -5,8 +5,7 @@ include('include/process/connect_process.php');
 //skulle föreslå att allt som har med databas att göra görs via 'include/methods/db.php' 
 //och att anslutningarna till db görs därifrån med 'include/process/connect-process.php'
 
-
-$userid= 24;
+$userid= $_SESSION['userID'];
 
 $listid = $_GET['listID'];
 
@@ -28,12 +27,13 @@ $user = getusername($userid);
   <script src='assets/js/searchbar.js'></script>
   </head>
   <body>
+
 <div class="row">
 	<div class="col-6">
 		<div class="row">
             <div class="w-100 p-3 text-white text-center" id="listtitle"><?php echo $title ?> </div>
         </div>
-<div class="modal" id="myModal">
+<div class="modal" id="myModalTwo">
   <div class="modal-dialog">
     <div class="modal-content">
 
@@ -41,6 +41,7 @@ $user = getusername($userid);
       <div class="modal-body">
         <form class="form-inline" onsubmit="changetitle()" method="GET" name="titleform">
 				<input type="text" class="form-control" name="newtitle">
+				<input type="hidden" id="listid" value="<?php echo $listid?>" name="listID">
 					<div class="input-group-append">
 						<input type="submit" class="btn btn-success">
 					</div>
@@ -56,7 +57,7 @@ $user = getusername($userid);
 </div>
                 <div class="col-12">
 				<div class="row">
-                        <div class="w-100 p-3 text-white text-center"><button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModal">
+                        <div class="w-100 p-3 text-white text-center"><button type="button" class="btn btn-dark" data-toggle="modal" data-target="#myModalTwo">
 				Change Title
 			</button></div>
                     </div>
@@ -83,7 +84,7 @@ $user = getusername($userid);
 						$id = $row['movieID'];					
 						$order=orderinlist($id);
 	
-						$rating = setrating($id);
+						$rating = setrating($id,$userid);
 	
 						$co = $co + 1;
 						$thumbs = "thumbs" . $co;
@@ -94,7 +95,6 @@ $user = getusername($userid);
 
 					<tr style="line-height: 70px;cursor:pointer;" id="<?php echo $co ?>" onclick="swapitems(this.id)">
 					<input type="hidden" id="movie<?php echo $co?>" value="<?php echo $arr->imdbID ?>">
-					<input type="hidden" id="listid" value="<?php echo $listid?>" name="list">
 					<td  id="order<?php echo $co?>" style="text-align: center;" ><?php echo $co ?></td>
 					<td><img src="<?php echo $arr-> Poster ?>" style="max-height:9.8vh"/></td>
 					<td><?php echo $arr-> Title ?></td>
@@ -132,6 +132,7 @@ $user = getusername($userid);
 
 	<div class="col-6">
 		<form class="form-inline" action="" method="GET" id="search_form">
+			   <input type="hidden" id="listid" value="<?php echo $listid?>" name="listID">
                <i class="fas fa-search" aria-hidden="true"></i>
                <input class="form-control form-control-sm ml-3 w-75" name="title" type="text" placeholder="Search"
                    aria-label="Search">
