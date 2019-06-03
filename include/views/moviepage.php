@@ -1,12 +1,9 @@
 <?php
-//skulle föreslå att allt som har med databas att göra görs via 'include/methods/db.php' 
-//och att anslutningarna till db görs därifrån med 'include/process/connect-process.php'
 $movie = $_GET['id'];
-$uname = "dbtrain_1095";
-$pass = "ldchnm";
-$host = "dbtrain.im.uu.se";
-$dbname = "dbtrain_1095";
-$connect = new mysqli($host, $uname, $pass, $dbname);
+
+include('include/process/connect_process.php');
+include('include/methods/functions.php');
+
 if(isset($_SESSION['userID']))
 {
 	$userid = $_SESSION['userID'];
@@ -26,17 +23,10 @@ if(isset($_GET['addtolist']))
 	
 	
 	foreach($lists as $v){
-		$result = mysqli_query($connect, "SELECT orderinlist FROM movie_list where listID = '$v' ORDER BY orderinlist DESC LIMIT 1");
-		$row = mysqli_fetch_array($result);
-		$length=$row['orderinlist'];
-		if(!is_numeric($length))
-		{
-			$length = 0;
-		}
+
+		$length = returnorder($v);
 		$order = $length + 1;
-		$state  = $connect->prepare("INSERT INTO movie_list(listID,movieID,orderinlist) VALUES(?,?,?)");
-		$state->bind_param('sss',$v,$movie,$order);
-		$state->execute();
+		addtolist($v,$movie,$order);
 		
 	}
 	
@@ -45,11 +35,7 @@ if(isset($_GET['addtolist']))
 }
 if(isset($_GET['addcomment']))
 {
-	$content = $_GET['comment'];
-	//$time = date("Y-m-d h:i");
-	$state  = $connect->prepare("INSERT INTO comments(movieID,comment,userID) VALUES(?,?,?)");
-	$state->bind_param('sss',$movie,$content,$userid);
-	$state->execute();
+	addcomment($_GET['comment'],$userid,$movie);
 	header('location:moviepage.php?id='.$movie);
 }
 ?>
@@ -100,8 +86,7 @@ if(isset($_GET['addcomment']))
 										<form action="moviepage.php?id=$id" method="get">
 										<?php
 				
-										$query = "select * from lists where userID = '$userid'";
-										$check = $connect->query($query);
+										$check = getlist($userid);
 										$counter = 0;
 										while($row = $check->fetch_array())//gå igenom alla resultat
 										{
@@ -162,31 +147,25 @@ if(isset($_GET['addcomment']))
 					?>
 				</div>
 			</div>
-		<?php 
-		//hämta email eller användarnamn för att visa istället för id
-		$query = "select * from comments where movieID = '$movie' order by timestamp desc";//välj inlägg med nyast först
-		$check = $connect->query($query);
+		<?php
+		$check = getcomments($movie);
 		while($row = $check->fetch_array())
 		{
-		$userid = $row['userID'];
-		$query2 = "select * from users where userID = '$userid'";//välj inlägg med nyast först
-		$res = $connect->query($query2);
-		while($resu = $res->fetch_array())
-		{
+		$username = getusername( $row['userID']);
+
 		?>	
 		<div class="row">
 			<div class="col-12">
 				<div class="media border p-3">
 					<img src="<?php echo $resu['img']?>" alt="John Doe" class="mr-3 mt-3 rounded-circle" style="width:60px;">
 					<div class="media-body">
-						<h4><?php echo $resu['username']?><?php echo " "?><small><i><?php echo $row['timestamp']?></i></small></h4>
+						<h4><?php echo $username?><?php echo " "?><small><i><?php echo $row['timestamp']?></i></small></h4>
 						<p><?php echo $row['comment']?></p>
 					</div>
 				</div>
 			</div>
 		</div>
 		<?php
-		}
 		}
 		?>
 
