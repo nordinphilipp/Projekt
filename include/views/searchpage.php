@@ -1,22 +1,6 @@
-<!--<!DOCTYPE html>
-<html lang="en">
-  <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-  <script src="bootstrap.min.js"></script>
-  <link href="css/main.css" rel="stylesheet" type="text/css" />
-  </head>-->
-  <body>
+<body>
     <?php
-$uname = "dbtrain_1095";
-$pass = "ldchnm";
-$host = "dbtrain.im.uu.se";
-$dbname = "dbtrain_1095";
-$connect = new mysqli($host, $uname, $pass, $dbname);
+include('include/process/connect_process.php');
 
 			?>
 	
@@ -33,8 +17,8 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 					if($arr -> Response == "False" )
 					{
 					?>
-						<div class="card">
-							<h1 class="card-title">Nothing Found</h1>
+						<div class="card text-white bg-dark mb-3" style="width:200px;">
+							<h4 class="card-title">Nothing Found</h4>
 						</div>			
 					<?php
 					}
@@ -45,7 +29,7 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 					foreach($arr -> Search as $test)
 					{
 					?>
-					<div class="card" style="min-width:200px;max-width:200px;float:left;">
+					<div class="card text-white bg-dark mb-3" style="min-width:200px;max-width:200px;float:left;">
 						<?php
 						$pos = $test->Poster;
 						if($pos == 'N/A'):
@@ -59,7 +43,7 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 						endif;
 						?>
 						<div class="card-body">
-						<p class="card-text"><a href="moviepage.php?id=<?php echo $test -> imdbID?>" class="stretched-link" style="color:black;"> <?php echo $test->Title?></a></p>
+						<p class="card-text"><a href="moviepage.php?id=<?php echo $test -> imdbID?>" class="stretched-link" style="color:white;"> <?php echo $test->Title?></a></p>
 						<p class="card-text"><?php echo $test->Year ?></p>	
 						</div>
 					</div>	
@@ -79,12 +63,12 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 				<div class="col-12">
 				<?php
 				
-				$result = mysqli_query($connect, "SELECT * FROM users where username like '$hold'");
+				$result = mysqli_query($connection, "SELECT * FROM users where username like '$hold'");
 				while($row = $result->fetch_array())
 				{
 				?>
 					<div class="card-deck">
-						<div class="card" style="min-width:200px;max-width:200px;float:left;">
+						<div class="card text-white bg-dark mb-3" style="min-width:200px;max-width:200px;float:left;">
 							<img class="card-img-top" src="<?phpecho $row['img']?>" alt="Card Image"/>
 							<div class="card-body">
 								<p class="card-text"><a href="#?id=<?phpecho $row['username'] ?>" class="stretched-link" style="color:black;"><?php echo $row['username'] ?></a></p>	
@@ -106,17 +90,18 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 				<div class="col-4">
 					<div class="card-deck">
 					<?php
-						$result = mysqli_query($connect, "SELECT * FROM lists where name like '$hold'");
+						$result = mysqli_query($connection, "SELECT * FROM lists where name like '$hold'");
 						while($row = $result->fetch_array())
 						{?>
-						<div class="card" style="min-width:200px;max-width:200px;float:left;">
+						<div class="card text-white bg-dark mb-3"style="min-width:200px;max-width:200px;float:left;">
 							<div class="card-body">
-								<p class="card-text"><a href="#" class="stretched-link" style="color:black;"><?php echo $row['name']?></a></p>	
-								<p class="card-text">Made By <?php echo $row['userID']?></p>
+								<p><a href="#" class="stretched-link" style="color:black;"><?php echo $row['name']?></a></p>	
+								<p>Made By <?php echo $row['userID']?></p>
 							</div>
 						</div>	
 						<?php
 						}
+						$connection->close();
 						?>
 					</div>
 				</div>
