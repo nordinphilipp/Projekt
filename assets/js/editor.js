@@ -25,7 +25,7 @@ function removemovie(x){
 		type: 'GET',
 		url: 'include/methods/remove.php?list='+list+'&movie=' + movie,
 		success: function (data) {
-			$(x).remove();
+			window.location.href = "listeditor.php?listID="+list;
 		}
 		});
 	 
