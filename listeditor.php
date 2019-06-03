@@ -5,6 +5,7 @@ include('include/process/connect_process.php');
 //skulle föreslå att allt som har med databas att göra görs via 'include/methods/db.php' 
 //och att anslutningarna till db görs därifrån med 'include/process/connect-process.php'
 
+
 $userid= $_SESSION['userID'];
 
 $listid = $_GET['listID'];
@@ -27,7 +28,7 @@ $user = getusername($userid);
   <script src='assets/js/searchbar.js'></script>
   </head>
   <body>
-
+  
 <div class="row">
 	<div class="col-6">
 		<div class="row">
@@ -77,14 +78,14 @@ $user = getusername($userid);
                         <?php 
 						$co = 0;
 						$length = returnorder($listid);
-						$check = fetchlist($listid);
+						$check = fetchmovies($listid);
 	
 						while($row = $check->fetch_array())//gå igenom alla resultat
 						{	
 						$id = $row['movieID'];					
 						$order=orderinlist($id);
 	
-						$rating = setrating($id,$userid);
+						$rating = setrating($id);
 	
 						$co = $co + 1;
 						$thumbs = "thumbs" . $co;
@@ -95,6 +96,7 @@ $user = getusername($userid);
 
 					<tr style="line-height: 70px;cursor:pointer;" id="<?php echo $co ?>" onclick="swapitems(this.id)">
 					<input type="hidden" id="movie<?php echo $co?>" value="<?php echo $arr->imdbID ?>">
+					
 					<td  id="order<?php echo $co?>" style="text-align: center;" ><?php echo $co ?></td>
 					<td><img src="<?php echo $arr-> Poster ?>" style="max-height:9.8vh"/></td>
 					<td><?php echo $arr-> Title ?></td>
@@ -106,15 +108,15 @@ $user = getusername($userid);
 					<?php
 					if($rating == "1"):
 					?>
-					<td style="text-align: center;"><img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fclipartwork.com%2Fwp-content%2Fuploads%2F2017%2F02%2Fclipart-for-thumbs-up.png&f=1" id="<?php echo $thumbs?>" style="height:30px;" onclick="thumbs(<?php echo $co?>)"/></td>
+					<td style="text-align: center;"><img src="assets/img/ratings/thumbs_up.png" id="<?php echo $thumbs?>" style="height:30px;" onclick="thumbs(<?php echo $co?>)"/></td>
 					<?php
 					elseif($rating == "2"):
 					?>
-					<td style="text-align: center;"><img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fsignaturesatori.com%2Fwp-content%2Fuploads%2F2017%2F03%2Fthumbs-down.png&f=1" id="<?php echo $thumbs?>" style="height:30px;"onclick="thumbs(<?php echo $co?>)"/></td>
+					<td style="text-align: center;"><img src="assets/img/ratings/thumbs_down.png" id="<?php echo $thumbs?>" style="height:30px;"onclick="thumbs(<?php echo $co?>)"/></td>
 					<?php
-					else:
+					elseif($rating =="0"):
 					?>
-					<td style="text-align: center;"><img src="https://cdn2.iconfinder.com/data/icons/online-menu/32/menu_negative_neutral_circle_sign-512.png" id="<?php echo $thumbs?>" style="height:30px;"onclick="thumbs(<?php echo $co?>)"/></td>
+					<td style="text-align: center;"><img src="assets/img/ratings/no_rating.png" id="<?php echo $thumbs?>" style="height:30px;"onclick="thumbs(<?php echo $co?>)"/></td>
 					<?php endif;?>
 					<td style="text-align: center;"><img src="http://www.clker.com/cliparts/Z/Z/S/Y/S/w/red-circle-cross-transparent-background.svg" style="height:30px;" id="<?php echo $remove?>" onclick="removemovie(<?php echo $co?>)"/></td>
 					</tr>
@@ -132,8 +134,8 @@ $user = getusername($userid);
 
 	<div class="col-6">
 		<form class="form-inline" action="" method="GET" id="search_form">
-			   <input type="hidden" id="listid" value="<?php echo $listid?>" name="listID">
                <i class="fas fa-search" aria-hidden="true"></i>
+			   <input type="hidden" id="listid" value="<?php echo $listid?>" name="listID">
                <input class="form-control form-control-sm ml-3 w-75" name="title" type="text" placeholder="Search"
                    aria-label="Search">
 		</form>
