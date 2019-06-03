@@ -2,7 +2,7 @@
     include('include/bootstrap.php');
     include('include/process/fetchUser_process.php');
     include('include/views/profile.php');
-    
+    include('include/process/connect_process.php');
     
 ?>        
         <!-- Footer -->
