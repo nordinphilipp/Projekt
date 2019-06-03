@@ -3,29 +3,15 @@ include('include/bootstrap.php');
 include('include/methods/editorfunctions.php');
 //skulle föreslå att allt som har med databas att göra görs via 'include/methods/db.php' 
 //och att anslutningarna till db görs därifrån med 'include/process/connect-process.php'
-$uname = "dbtrain_1095";
+$connect = conn();
 
-$pass = "ldchnm";
+$userid= 24;
 
-$host = "dbtrain.im.uu.se";
+$listid = $_GET['listid'];
 
-$dbname = "dbtrain_1095";
+$title = gettitle($listid);
 
-$connect = new mysqli($host, $uname, $pass, $dbname);
-
-$userid=24;
-
-$listid = 6;
-
-$query = "select name from lists where listID = '$listid'";
-$check = $connect->query($query);
-$res = $check -> fetch_array();
-$title = $res['name'];
-
-$query = "select username from users where userID = '$userid'";
-$check = $connect->query($query);
-$res = $check -> fetch_array();
-$user = $res['username'];
+$user = getusername($userid);
 
 ?>
 <!DOCTYPE html>
@@ -92,25 +78,11 @@ $user = $res['username'];
 						$check = fetchlist($listid);
 	
 						while($row = $check->fetch_array())//gå igenom alla resultat
-						{
-		
-						$id = $row['movieID'];
-						$result = mysqli_query($connect, "SELECT * FROM movie_list where movieID = '$id'");
-						$row = mysqli_fetch_array($result);
-						$order=$row['orderinlist'];
+						{	
+						$id = $row['movieID'];					
+						$order=orderinlist($id);
 	
-						$query2 = "SELECT rating FROM movies2 WHERE movieID = '$id'";
-						$check2 = $connect->query($query2);
-						if ($check2 ->num_rows ===0){
-							$rating = "0";
-						}
-						else
-						{
-							while($rowtwo = $check2->fetch_assoc())
-							{	
-								$rating = $rowtwo['rating'];
-							}
-						}
+						$rating = setrating($id);
 	
 						$co = $co + 1;
 						$thumbs = "thumbs" . $co;
