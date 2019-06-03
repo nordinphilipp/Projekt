@@ -191,7 +191,6 @@ $user = getusername($userid);
 					</div>
 				<?php
 				}
-				mysqli_close($connect);
 				?>
 	</div>
 </div>
