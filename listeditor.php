@@ -124,7 +124,7 @@ $user = $res['username'];
 					<input type="hidden" id="listid" value="<?php echo $listid?>" name="list">
 					<td  id="order<?php echo $co?>" style="text-align: center;" ><?php echo $co ?></td>
 					<td><img src="<?php echo $arr-> Poster ?>" style="max-height:9.8vh"/></td>
-					<td><?php echo $arr-> Title ?> <?php echo $arr->imdbID ?></td>
+					<td><?php echo $arr-> Title ?></td>
 					<td style="text-align: center;"><?php echo $arr-> Year ?></td>
 					<td style="text-align: center;"><?php echo $arr-> Runtime ?></td>
 					
