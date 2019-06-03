@@ -2,6 +2,7 @@
 https://www.w3schools.com/php/php_file_upload.asp-->
 <?php
     include('include/bootstrap.php');
+    
     $dir = "assets/img/";
     $file = $dir . basename($_FILES['uploadFile']['name']);
     $uploadOK = 1;

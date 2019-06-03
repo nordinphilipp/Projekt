@@ -1,11 +1,14 @@
 <?php
+
+//använd denna fil för att ansluta till databasen
+
 //connect om det finns en aktiv session
 if(session_status() === PHP_SESSION_ACTIVE){
     //databasvariabler
-    $host = 'localhost';
-    $user = 'root';
-    $pw = 'password';
-    $db = 'moviemate';
+    $user = "dbtrain_1095";
+    $pw = "ldchnm";
+    $host = "dbtrain.im.uu.se";
+    $db = "dbtrain_1095";
 
     $connection = new mysqli($host, $user, $pw, $db);
 

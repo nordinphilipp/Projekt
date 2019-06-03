@@ -70,6 +70,8 @@ $connect = new mysqli($host, $uname, $pass, $dbname);
 				</div>
 			</div>
 						
+			<!--skulle föreslå att hämtningarna från databas görs via 'include/methods/db.php' 
+			och att anslutningarna till db görs därifrån med 'include/process/connect-process.php'-->
 						
 			<div class="row">
 				<div class="col-4"><h1 class="titles">Users</h1></div>
