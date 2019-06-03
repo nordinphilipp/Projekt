@@ -1,7 +1,4 @@
 <?php
-/*
-Redirect efter användare klickat på knappen för att radera kommentar till delete_comment.php */
-
     include('include/bootstrap.php');
 	include('include/process/connect_process.php');
     $commentID = $_GET['id']; 
@@ -14,7 +11,7 @@ Redirect efter användare klickat på knappen för att radera kommentar till del
 	/* Fixa felmeddelande ifall användaren ej har behörighet att ändra lista, istället för echo */
 		if(!empty($_SESSION['logged_in']))
 		{
-			if($_SESSION['userID'] == 27)
+			if($_SESSION['accessLevel'] == 2)
 				{
 					$sql = "DELETE FROM comments WHERE commentID='$commentID'";
 					mysqli_query($connection, $sql);
@@ -24,15 +21,16 @@ Redirect efter användare klickat på knappen för att radera kommentar till del
 				{
 					$sql = "DELETE FROM comments WHERE commentID='$commentID'";
 					mysqli_query($connection, $sql);
-					header("Location: list.php?id=$movieID");
+					header("Location: moviepage.php?id=$movieID");
 				}
 			else
 			{
-				echo "Du har ej behörighet för att ändra/ta bort denna lista.";		// Byt design
+				echo '<script> displayAlert("Du har ej behörighet")</script>';			
 			}
 		}
 		else
 		{
-			echo "Du har ej behörighet för att ändra/ta bort denna lista.";
+			echo '<script> displayAlert("Du har ej behörighet")</script>';
+			
 		}
 ?> 
