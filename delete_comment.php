@@ -3,14 +3,10 @@
 Redirect efter användare klickat på knappen för att radera kommentar till delete_comment.php */
 
     include('include/bootstrap.php');
-	$uname = "dbtrain_1095";
-	$pass = "ldchnm";
-	$host = "dbtrain.im.uu.se";
-	$dbname = "dbtrain_1095";
-	$connect = new mysqli($host, $uname, $pass, $dbname);
+	include('include/process/connect_process.php');
     $commentID = $_GET['id']; 
 	$comment = "SELECT * from comments where commentID='$commentID'";
-	$commentresult = $connect ->query($comment);
+	$commentresult = $connection ->query($comment);
 	$res = $commentresult -> fetch_array();
 	$userID = $res['userID'];
 	$movieID = $res['movieID'];
@@ -21,13 +17,13 @@ Redirect efter användare klickat på knappen för att radera kommentar till del
 			if($_SESSION['userID'] == 27)
 				{
 					$sql = "DELETE FROM comments WHERE commentID='$commentID'";
-					mysqli_query($connect, $sql);
+					mysqli_query($connection, $sql);
 					header("Location: moviepage.php?id=$movieID");
 				}
 			else if($_SESSION['userID'] == $userID)
 				{
 					$sql = "DELETE FROM comments WHERE commentID='$commentID'";
-					mysqli_query($connect, $sql);
+					mysqli_query($connection, $sql);
 					header("Location: list.php?id=$movieID");
 				}
 			else
