@@ -17,11 +17,13 @@
 				{
 					$sql = "DELETE FROM lists WHERE listID='$listID'";
 					mysqli_query($connect, $sql);
+					header("Location: list.php?listID=$listid");
 				}
 			else if($_SESSION['userID'] == $userID)
 				{
 					$sql = "DELETE FROM lists WHERE listID='$listID'";
 					mysqli_query($connect, $sql);
+					header("Location: list.php?listID=$listid");
 				}
 			else
 			{
