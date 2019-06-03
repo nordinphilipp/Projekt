@@ -41,9 +41,9 @@ include('include/process/connect_process.php');
 	return $check;
 }
 
-function setrating($id){
+function setrating($id,$userid){
 include('include/process/connect_process.php');
-$query2 = "SELECT rating FROM movies2 WHERE movieID = '$id'";
+$query2 = "SELECT rating FROM movies2 WHERE movieID = '$id' AND userID = '$userid'";
 $check2 = $connection->query($query2);
 	if ($check2 ->num_rows === 0){
 $connection->close();
