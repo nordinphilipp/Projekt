@@ -86,7 +86,7 @@ function getlist($userid){
 	$query = "select * from lists where userID = '$userid'";
 	return $connection->query($query);
 }
-function fetchlist($x){
+function fetchmovies($x){
 include('include/process/connect_process.php');
 	$query = "select * from movie_list where listID = '$x' order by orderinlist asc";
 	$check = $connection->query($query);
