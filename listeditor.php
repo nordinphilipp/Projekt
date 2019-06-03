@@ -1,22 +1,31 @@
 <?php
 include('include/bootstrap.php');
 include('include/methods/editorfunctions.php');
-
 //skulle föreslå att allt som har med databas att göra görs via 'include/methods/db.php' 
 //och att anslutningarna till db görs därifrån med 'include/process/connect-process.php'
 $uname = "dbtrain_1095";
+
 $pass = "ldchnm";
+
 $host = "dbtrain.im.uu.se";
+
 $dbname = "dbtrain_1095";
-$connect = new mysqli('localhost', 'root','', 'testprojekt');
+
+$connect = new mysqli($host, $uname, $pass, $dbname);
+
 $userid=24;
+
 $listid = 6;
-/*$query = "select name from lists where listID = '$listid'";
+
+$query = "select name from lists where listID = '$listid'";
 $check = $connect->query($query);
 $res = $check -> fetch_array();
-$title = $res['name'];*/
-$name = "Test";
-$user = "User";
+$title = $res['name'];
+
+$query = "select username from users where userID = '$userid'";
+$check = $connect->query($query);
+$res = $check -> fetch_array();
+$user = $res['username'];
 
 ?>
 <!DOCTYPE html>
@@ -35,7 +44,7 @@ $user = "User";
 <div class="row">
 	<div class="col-6">
 		<div class="row">
-            <div class="w-100 p-3 text-white text-center" id="listtitle"><?php echo $name ?> </div>
+            <div class="w-100 p-3 text-white text-center" id="listtitle"><?php echo $title ?> </div>
         </div>
 <div class="modal" id="myModal">
   <div class="modal-dialog">
@@ -43,10 +52,10 @@ $user = "User";
 
       <!-- Modal body -->
       <div class="modal-body">
-        <form class="form-inline" onsubmit="changetitle()" method="GET" id="search_form">
-				<input type="text" class="form-control" name="newtitle" value="<?php echo $name?>">
+        <form class="form-inline" onsubmit="changetitle()" method="GET" name="titleform">
+				<input type="text" class="form-control" name="newtitle">
 					<div class="input-group-append">
-						<input type="submit" class="btn btn-success" name="search" value="Go">
+						<input type="submit" class="btn btn-success">
 					</div>
 		
 		</form>
@@ -73,6 +82,7 @@ $user = "User";
                     <th style="width:10%; text-align: center;" scope="col">Year</th>
                     <th style="width:10%; text-align: center;" scope="col">Runtime</th>
                     <th style="width:10%; text-align: center;" scope="col">Rating</th>
+					<td style="text-align: center;">Remove</td>
                     </tr>
 					</thead>
                     <tbody>
@@ -104,6 +114,7 @@ $user = "User";
 	
 						$co = $co + 1;
 						$thumbs = "thumbs" . $co;
+						$remove = "remove" . $co;
 						$content = file_get_contents("http://www.omdbapi.com/?i=$id&apikey=2c66b43f");
 						$arr = json_decode($content);
 						?>
@@ -116,6 +127,7 @@ $user = "User";
 					<td><?php echo $arr-> Title ?></td>
 					<td style="text-align: center;"><?php echo $arr-> Year ?></td>
 					<td style="text-align: center;"><?php echo $arr-> Runtime ?></td>
+					
 		
 		
 					<?php
@@ -129,12 +141,15 @@ $user = "User";
 					<?php
 					else:
 					?>
-					<td style="text-align: center;"><img src="https://proxy.duckduckgo.com/iu/?u=https%3A%2F%2Fsignaturesatori.com%2Fwp-content%2Fuploads%2F2017%2F03%2Fthumbs-down.png&f=1" id="<?php echo $thumbs?>" style="height:30px;"onclick="thumbs(<?php echo $co?>)"/></td>
+					<td style="text-align: center;"><img src="https://cdn2.iconfinder.com/data/icons/online-menu/32/menu_negative_neutral_circle_sign-512.png" id="<?php echo $thumbs?>" style="height:30px;"onclick="thumbs(<?php echo $co?>)"/></td>
 					<?php endif;?>
+					<td style="text-align: center;"><img src="http://www.clker.com/cliparts/Z/Z/S/Y/S/w/red-circle-cross-transparent-background.svg" style="height:30px;" id="<?php echo $remove?>" onclick="removemovie(<?php echo $co?>)"/></td>
 					</tr>
 					<?php
 					}
 					?>
+					
+					
                     </tbody>
 					</table>
                     
