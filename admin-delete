@@ -1,0 +1,11 @@
+	<?php
+	if(!empty($_SESSION['logged_in'])){
+	if($_SESSION['userID'] = 27)
+	{
+		$query = "SELECT * FROM admin";
+		$result = $connection->query($query);
+		$sql = "DELETE FROM movies_list WHERE listID='$listid'";
+		mysqli_query($connection, $sql);
+	}
+}
+ ?> 
